@@ -482,3 +482,122 @@ a.icard {
 a.back {
   text-decoration: none;
 }
+
+/* ── Capacity panel fills ────────────────────────── */
+.capfill {
+  position: absolute;
+  top: 0;
+  height: 100%;
+}
+.captarget {
+  position: absolute;
+  top: 0;
+  width: 1.5px;
+  height: 100%;
+  background: rgba(0,0,0,0.2);
+}
+.leg-target {
+  width: 1.5px;
+  height: 10px;
+  background: rgba(0,0,0,0.25);
+}
+
+/* ── Initiative card content ─────────────────────── */
+.igw {
+  font-size: 19px;
+  font-weight: 500;
+  color: var(--color-text-primary);
+}
+.igw span {
+  font-size: 11px;
+  color: var(--color-text-secondary);
+}
+.icard-infra {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  margin-bottom: 4px;
+}
+.icard-pbar {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 9px;
+}
+.icard-ptrack {
+  flex: 1;
+  height: 4px;
+  background: var(--color-border-tertiary);
+  border-radius: 2px;
+  overflow: hidden;
+  direction: ltr;
+}
+.icard-pfill {
+  height: 100%;
+  border-radius: 2px;
+}
+.icard-pval {
+  font-size: 11px;
+  color: var(--color-text-secondary);
+  min-width: 26px;
+}
+.icard-dots {
+  display: flex;
+  gap: 3px;
+  margin-top: 7px;
+}
+.icard-dot {
+  height: 5px;
+  flex: 1;
+  border-radius: 2px;
+}
+.icard-count {
+  font-size: 10px;
+  color: var(--color-text-tertiary);
+  margin-top: 5px;
+}
+
+/* ── Icon sizing ─────────────────────────────────── */
+.iico i { font-size: 15px; }
+.dico i { font-size: 22px; }
+.adic i { font-size: 10px; }
+
+/* ── Status modifier classes ─────────────────────── */
+.aitem.done     { border-right: 3px solid #639922; }
+.aitem.progress { border-right: 3px solid #378ADD; }
+.aitem.early    { border-right: 3px solid #BA7517; }
+.aitem.none     { border-right: 3px solid #888780; }
+
+.adic.done     { background: #EAF3DE; }
+.adic.progress { background: #E6F1FB; }
+.adic.early    { background: #FAEEDA; }
+.adic.none     { background: #F1EFE8; }
+
+.atag.done     { background: #EAF3DE; color: #3B6D11; }
+.atag.progress { background: #E6F1FB; color: #185FA5; }
+.atag.early    { background: #FAEEDA; color: #854F0B; }
+.atag.none     { background: #F1EFE8; color: #5F5E5A; }
+
+.apfill.done     { background: #639922; }
+.apfill.progress { background: #378ADD; }
+.apfill.early    { background: #BA7517; }
+.apfill.none     { background: #888780; }
+
+.sbfill.done     { background: #639922; }
+.sbfill.progress { background: #378ADD; }
+.sbfill.early    { background: #BA7517; }
+.sbfill.none     { background: #888780; }
+
+/* ── Milestone timeline states ───────────────────── */
+.tlyear.done   { color: var(--color-text-primary); }
+.tlyear.future { color: var(--color-text-tertiary); }
+
+.tldot.future {
+  background: var(--color-background-primary);
+  border-color: var(--color-border-secondary);
+}
+
+.tllabel.done   { color: var(--color-text-secondary); }
+.tllabel.future { color: var(--color-text-tertiary); }
+
+/* ── Policy breakdown section ────────────────────── */
+.breakdown { margin-top: 16px; }
