@@ -18,7 +18,15 @@
     <div class="sidebar-ico" style="background:<%= item.iconBg %>">
       <i class="ti <%= item.icon %>" style="color:<%= item.iconColor %>"></i>
     </div>
-    <span><%- item.title %></span>
+    <div class="sidebar-body">
+      <span class="sidebar-title"><%- item.title %></span>
+      <div class="sidebar-prog">
+        <div class="sidebar-track">
+          <div class="sidebar-fill" style="width:<%= item.avgPct %>%;background:<%= item.color %>"></div>
+        </div>
+        <span class="sidebar-stat"><%= item.done %>/<%= item.total %></span>
+      </div>
+    </div>
   </a>
   <% }) %>
 </nav>

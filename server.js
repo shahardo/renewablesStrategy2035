@@ -28,10 +28,21 @@ function computeStats(initiative) {
   return { counts, avgPct, breakdown };
 }
 
-// Minimal initiative data for the sidebar (no heavy action/milestone arrays)
-const sidebarItems = data.initiatives.map(({ id, title, icon, iconBg, iconColor }) =>
-  ({ id, title, icon, iconBg, iconColor })
-);
+// Sidebar items computed once at startup (data is static)
+const sidebarItems = data.initiatives.map(i => {
+  const { counts, avgPct } = computeStats(i);
+  return {
+    id:        i.id,
+    title:     i.title,
+    icon:      i.icon,
+    iconBg:    i.iconBg,
+    iconColor: i.iconColor,
+    color:     i.color,
+    avgPct,
+    done:      counts.done,
+    total:     i.actions.length,
+  };
+});
 
 // ── Pages ─────────────────────────────────────────────────────────────────
 
