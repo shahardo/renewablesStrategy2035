@@ -1,0 +1,292 @@
+
+<h2 class="sr-only">לוח מעקב יישום תוכנית אנרגיות מתחדשות 2035 — KPIs ומדדי התקדמות לפי 6 מהלכי-על</h2>
+<style>
+.db{direction:rtl;font-family:var(--font-sans);padding:1rem 0}
+.kgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:1.5rem}
+.kcard{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:12px 14px}
+.klabel{font-size:11px;color:var(--color-text-secondary);margin-bottom:4px}
+.kval{font-size:20px;font-weight:500;color:var(--color-text-primary);line-height:1.2}
+.ksub{font-size:10px;color:var(--color-text-tertiary);margin-top:3px}
+.kpbar{height:3px;background:var(--color-border-tertiary);border-radius:2px;margin-top:8px;overflow:hidden;direction:ltr}
+.kpfill{height:100%;border-radius:2px}
+.panel{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1rem 1.25rem;margin-bottom:1.25rem}
+.sec-hdr{font-size:12px;font-weight:500;color:var(--color-text-secondary);margin-bottom:12px;padding-bottom:7px;border-bottom:0.5px solid var(--color-border-tertiary)}
+.caprow{display:flex;align-items:center;gap:10px;margin-bottom:9px}
+.caplabel{font-size:11px;color:var(--color-text-secondary);min-width:90px;text-align:right}
+.captrack{flex:1;height:13px;background:var(--color-background-secondary);border-radius:6px;position:relative;overflow:hidden}
+.capval{font-size:11px;color:var(--color-text-secondary);min-width:52px}
+.leg{display:flex;gap:14px;margin-top:12px;padding-top:10px;border-top:0.5px solid var(--color-border-tertiary);flex-wrap:wrap}
+.legitem{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--color-text-secondary)}
+.legsq{width:8px;height:8px;border-radius:2px;flex-shrink:0}
+.igrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.icard{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1rem 1.25rem;cursor:pointer;transition:border-color 0.2s}
+.icard:hover{border-color:var(--color-border-secondary)}
+.ihead{display:flex;align-items:center;gap:9px;margin-bottom:8px}
+.iico{width:30px;height:30px;border-radius:var(--border-radius-md);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ititle{font-size:13px;font-weight:500;color:var(--color-text-primary)}
+.isub{font-size:11px;color:var(--color-text-secondary);margin-bottom:10px;line-height:1.4}
+.dkgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:1.25rem}
+.back{display:flex;align-items:center;gap:5px;font-size:13px;color:var(--color-text-secondary);cursor:pointer;background:none;border:none;padding:0;margin-bottom:1.25rem}
+.back:hover{color:var(--color-text-primary)}
+.dhead{display:flex;align-items:center;gap:12px;margin-bottom:1.25rem}
+.dico{width:42px;height:42px;border-radius:var(--border-radius-lg);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.dtitle{font-size:18px;font-weight:500;color:var(--color-text-primary)}
+.dsub{font-size:13px;color:var(--color-text-secondary)}
+.alist{display:flex;flex-direction:column;gap:8px}
+.aitem{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:9px 12px}
+.arow{display:flex;align-items:center;gap:8px}
+.adic{width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.atitle{font-size:12px;color:var(--color-text-primary);flex:1;line-height:1.4}
+.atag{font-size:10px;padding:2px 7px;border-radius:10px;flex-shrink:0}
+.apbar{display:flex;align-items:center;gap:7px;margin-top:6px;direction:ltr}
+.aptrack{flex:1;height:4px;background:var(--color-border-tertiary);border-radius:2px;overflow:hidden}
+.apfill{height:100%;border-radius:2px}
+.apval{font-size:10px;color:var(--color-text-tertiary);min-width:22px;text-align:right}
+.tl{position:relative;padding:0 0 16px}
+.tl-line{position:absolute;top:30px;left:0;right:0;height:1.5px;background:var(--color-border-tertiary)}
+.tl-items{display:flex;justify-content:space-between;position:relative}
+.tlitem{display:flex;flex-direction:column;align-items:center;gap:5px;flex:1}
+.tlyear{font-size:10px;font-weight:500;height:24px;display:flex;align-items:flex-end;justify-content:center}
+.tldot{width:11px;height:11px;border-radius:50%;border:2px solid;z-index:1}
+.tllabel{font-size:9px;text-align:center;max-width:65px;line-height:1.3}
+.sbrow{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.sbtrack{flex:1;height:8px;background:var(--color-background-secondary);border-radius:4px;overflow:hidden;direction:ltr}
+.sbfill{height:100%;border-radius:4px}
+.sblabel{font-size:11px;color:var(--color-text-secondary);min-width:110px;text-align:right}
+.sbval{font-size:11px;font-weight:500;color:var(--color-text-primary);min-width:18px}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+</style>
+<div class="db" id="db"></div>
+<script>
+var ST={
+  done:{bg:'#EAF3DE',fill:'#639922',text:'#3B6D11',icon:'ti-check',label:'הושלם'},
+  progress:{bg:'#E6F1FB',fill:'#378ADD',text:'#185FA5',icon:'ti-player-play',label:'בביצוע'},
+  early:{bg:'#FAEEDA',fill:'#BA7517',text:'#854F0B',icon:'ti-clock',label:'בשלבים ראשונים'},
+  none:{bg:'#F1EFE8',fill:'#888780',text:'#5F5E5A',icon:'ti-circle',label:'טרם החל'}
+};
+var INI=[
+  {id:1,title:'מיצוי דו-שימוש',sub:'גגות · קירויים · תשתיות מים · שטחים מופרים',icon:'ti-building',bg:'#E6F1FB',txt:'#185FA5',fill:'#378ADD',
+    gwT:9.5,gwI:4.5,gwC:1.0,gwA:4.0,
+    acts:[
+      {t:'הרחבת חובת התקנה במבנים',s:'done',p:100},
+      {t:'מודלים מתקדמים לתמרוץ',s:'progress',p:45},
+      {t:'ודאות רגולטורית ארוכת טווח',s:'progress',p:40},
+      {t:'הרחבת מיפוי פוטנציאל דו-שימוש',s:'progress',p:55},
+      {t:'חיזוק תפקיד השלטון המקומי',s:'early',p:15},
+      {t:'הסרת חסמים לגדרות ומחלפים',s:'early',p:10},
+      {t:'האצת קירויים סולאריים',s:'early',p:15},
+      {t:'כיסוי תשתיות מים וחממות',s:'early',p:20},
+      {t:'פישוט רגולציה לגגות קטנים',s:'done',p:80},
+      {t:'מנגנוני ייצור בבניינים משותפים',s:'early',p:20}
+    ],
+    ms:[{y:'2022',l:'פרמיה אורבנית',d:true},{y:'2024',l:'פטור היתר 700kW',d:true},{y:'2026',l:'מאה אלף גגות',d:true},{y:'2027',l:'חובת התקנה רחבה',d:false},{y:'2030',l:'8 GW דו-שימוש',d:false},{y:'2035',l:'יעד 9.5 GW',d:false}]
+  },
+  {id:2,title:'אגרו-וולטאי',sub:'שילוב ייצור חשמל עם פעילות חקלאית',icon:'ti-plant',bg:'#EAF3DE',txt:'#3B6D11',fill:'#639922',
+    gwT:5.0,gwI:0.01,gwC:0,gwA:5.0,
+    acts:[
+      {t:'יישום תמ"א 24/1 לאגרו-וולטאי',s:'done',p:100},
+      {t:'עדכון עיתי אסדרה תכנונית',s:'progress',p:30},
+      {t:'הקלות תכנוניות וקנייניות',s:'progress',p:40},
+      {t:'יעדי אישור תוכניות למחוזות',s:'early',p:20},
+      {t:'הקצאת משאבים ותמיכה במחקר',s:'progress',p:35},
+      {t:'הקמת מסד ידע לאומי',s:'none',p:0}
+    ],
+    ms:[{y:'2021',l:'צוות בין-משרדי',d:true},{y:'2023',l:'תוכנית פיילוטים',d:true},{y:'2026',l:'אישור תמ"א 24/1',d:true},{y:'2027',l:'200 MW מסחרי',d:false},{y:'2030',l:'2 GW',d:false},{y:'2035',l:'יעד 5 GW',d:false}]
+  },
+  {id:3,title:'מתקנים קרקעיים',sub:'מתחמים גדולים · אזורי REZ · קרקעות מדינה',icon:'ti-solar-panel',bg:'#FAEEDA',txt:'#854F0B',fill:'#BA7517',
+    gwT:10.5,gwI:3.5,gwC:3.0,gwA:4.5,
+    acts:[
+      {t:'מיפוי ושיווק אזורי אנרגיה רחבי היקף',s:'progress',p:35},
+      {t:'הכרה במתחמים כתשתיות חיוניות',s:'none',p:0},
+      {t:'מנגנון תיאום בין-משרדי לקרקעי',s:'early',p:15},
+      {t:'קריטריונים לקרקע פוטנציאל נמוך',s:'progress',p:40},
+      {t:'הרחבת המכסה התכנונית 2030+',s:'done',p:70},
+      {t:'התאמת מסלולי תכנון',s:'progress',p:30},
+      {t:'הארכת חכירה ושחלוף פאנלים',s:'none',p:0}
+    ],
+    ms:[{y:'2020',l:'מכסה 60K דונם',d:true},{y:'2024',l:'מכרזים 100+ MW',d:true},{y:'2026',l:'תכנון אורון-צין',d:false},{y:'2028',l:'REZ ראשונים',d:false},{y:'2032',l:'8 GW קרקעי',d:false},{y:'2035',l:'יעד 10.5 GW',d:false}]
+  },
+  {id:4,title:'רשת ואגירה',sub:'תשתית מאפשרת · רשת חכמה · קיבולת קליטה',icon:'ti-bolt',bg:'#EEEDFE',txt:'#534AB7',fill:'#7F77DD',
+    gwT:null,gwI:null,gwC:null,gwA:null,
+    kpis:[{l:'השקעה ברשת אושרה',v:'₪39B',s:'הולכה + חלוקה'},{l:'אגירה מתוכננת',v:'9+ GW',s:'יעד 2030'},{l:'צעדים בביצוע',v:'5/11',s:'מתוך 11 צעדים'},{l:'תשובות מחלק חיוביות',v:'~60%',s:'יעד: 90%+'}],
+    acts:[
+      {t:'תיאום קבוע רשת-מתחדשות',s:'progress',p:40},
+      {t:'מסלול תכנון לאומי לרשת (ות"ל)',s:'none',p:0},
+      {t:'מסלול טרום-תכנוני לתשתיות',s:'none',p:5},
+      {t:'רגולציה לרשת גמישה ודינמית',s:'progress',p:35},
+      {t:'כלים דיגיטליים לרשת חכמה',s:'progress',p:50},
+      {t:'הסדרת אגרגטורים',s:'none',p:5},
+      {t:'רגולציה למיקרו-גרידים',s:'none',p:0},
+      {t:'חיבור חוות שרתים לאגירה מקומית',s:'none',p:0},
+      {t:'אסדרה לאגירה במתח נמוך',s:'progress',p:45},
+      {t:'התאמת דרישות בטיחות לאגירה',s:'progress',p:30},
+      {t:'תוכנית לאומית לאגירה',s:'none',p:0}
+    ],
+    ms:[{y:'2023',l:'אישור פר"ח ₪22B',d:true},{y:'2024',l:'ADMS חב\' החשמל',d:true},{y:'2026',l:'ות"ל לרשת',d:false},{y:'2028',l:'5 GW אגירה',d:false},{y:'2030',l:'9 GW אגירה',d:false},{y:'2035',l:'רשת חכמה מלאה',d:false}]
+  },
+  {id:5,title:'הובלה ממשלתית',sub:'תיאום · יעדים סגמנטליים · דוגמה ממשלתית',icon:'ti-building-community',bg:'#FAECE7',txt:'#993C1D',fill:'#D85A30',
+    gwT:null,gwI:null,gwC:null,gwA:null,
+    kpis:[{l:'יעדים סגמנטליים',v:'טרם נקבעו',s:'בהחלטת ממשלה'},{l:'מנגנון בין-משרדי',v:'בהקמה',s:'פורום קבוע'},{l:'מבני ציבור עם סולאר',v:'~30%',s:'יעד: 80%'},{l:'GIS לאומי',v:'חלקי',s:'בפיתוח'}],
+    acts:[
+      {t:'יעדים סגמנטליים בהחלטת ממשלה',s:'none',p:5},
+      {t:'מנגנון תיאום בין-משרדי קבוע',s:'progress',p:30},
+      {t:'משרד האנרגיה כגורם מתכלל',s:'progress',p:50},
+      {t:'מערכת GIS ממשלתית אחודה',s:'early',p:20},
+      {t:'One-Stop-Shop רגולטורי',s:'none',p:0},
+      {t:'התקנה על 80% ממבני ציבור',s:'progress',p:30},
+      {t:'יעדים לחברות ממשלתיות',s:'none',p:5},
+      {t:'מסגרת לפוטנציאל ביטחוני',s:'none',p:0}
+    ],
+    ms:[{y:'2020',l:'החלטת ממשלה 465',d:true},{y:'2025',l:'מפת דרכים עדכון',d:true},{y:'2026',l:'תוכנית לאומית',d:true},{y:'2026',l:'יעדים סגמנטליים',d:false},{y:'2027',l:'GIS + One-Stop',d:false},{y:'2028',l:'מנגנון מלא',d:false}]
+  },
+  {id:6,title:'טכנולוגיות נוספות',sub:'גיוון תמהיל · חדשנות · היערכות לטווח ארוך',icon:'ti-atom',bg:'#FBEAF0',txt:'#993556',fill:'#D4537E',
+    gwT:1.0,gwI:0.5,gwC:0.25,gwA:0.5,
+    acts:[
+      {t:'עדכון מסגרת רגולטורית לטכנולוגיות',s:'early',p:15},
+      {t:'ארגז חול רגולטורי לחדשנות',s:'none',p:0},
+      {t:'הרחבת תמיכה תקציבית במו"פ',s:'progress',p:40},
+      {t:'מיפוי טכנולוגיות ייחודיות לישראל',s:'early',p:20}
+    ],
+    ms:[{y:'2022',l:'תרמו-סולארי אשלים',d:true},{y:'2025',l:'פיילוטים ביומסה',d:true},{y:'2027',l:'ארגז חול',d:false},{y:'2029',l:'PVT מסחרי',d:false},{y:'2032',l:'אנרגיה ימית',d:false},{y:'2035',l:'יעד 1 GW',d:false}]
+  }
+];
+
+function p(a,b){return b?Math.round((a/b)*100):0;}
+
+function kcard(label,val,sub,fill,pct){
+  var bar=pct!=null?'<div class="kpbar"><div class="kpfill" style="width:'+pct+'%;background:'+fill+'"></div></div>':'';
+  return '<div class="kcard"><div class="klabel">'+label+'</div><div class="kval">'+val+'</div><div class="ksub">'+sub+'</div>'+bar+'</div>';
+}
+
+function dotStrip(acts){
+  return acts.map(function(a){
+    var c=a.s==='done'?'#639922':a.s==='progress'?'#378ADD':a.s==='early'?'#BA7517':'var(--color-border-tertiary)';
+    return '<div style="height:5px;flex:1;border-radius:2px;background:'+c+'"></div>';
+  }).join('');
+}
+
+function renderOverview(){
+  var html='';
+  html+='<div class="kgrid">';
+  html+=kcard('הספק מותקן','8 GW','מתוך יעד 26 GW','#639922',p(8,26));
+  html+=kcard('בשלבי הקמה','4 GW',p(12,26)+'% כולל הקמה','#9FE1CB',null);
+  html+=kcard('נתח מתחדשות','16%','יעד 35–40% ב-2035','#BA7517',p(16,40));
+  html+=kcard('קצב התקנה','1 GW/שנה','יעד 1.8 GW/שנה','#D85A30',p(10,18));
+  html+=kcard('צעדי מדיניות','8/46','הושלמו מתוך 46 צעדים','#7F77DD',p(8,46));
+  html+='</div>';
+
+  var mx=12;
+  var cd=[
+    {l:'קרקעי',i:3.5,c:3.0,t:10.5,fi:'#BA7517',fc:'#FAC775'},
+    {l:'דו-שימוש',i:4.5,c:1.0,t:9.5,fi:'#378ADD',fc:'#B5D4F4'},
+    {l:'אגרו-וולטאי',i:0.01,c:0,t:5.0,fi:'#639922',fc:'#9FE1CB'},
+    {l:'טכנולוגיות',i:0.5,c:0.25,t:1.0,fi:'#D4537E',fc:'#F4C0D1'}
+  ];
+  html+='<div class="panel">';
+  html+='<div class="sec-hdr">מסלול קיבולת לעמידה ביעד 26 GW ב-2035</div>';
+  cd.forEach(function(r){
+    var iw=Math.round((r.i/mx)*100);
+    var cw=Math.round((r.c/mx)*100);
+    var tw=Math.round((r.t/mx)*100);
+    html+='<div class="caprow"><div class="caplabel">'+r.l+'</div>';
+    html+='<div class="captrack">';
+    html+='<div style="position:absolute;top:0;left:0;width:'+iw+'%;height:100%;background:'+r.fi+'"></div>';
+    html+='<div style="position:absolute;top:0;left:'+iw+'%;width:'+cw+'%;height:100%;background:'+r.fc+'"></div>';
+    html+='<div style="position:absolute;top:0;left:'+tw+'%;width:1.5px;height:100%;background:rgba(0,0,0,0.2)"></div>';
+    html+='</div>';
+    html+='<div class="capval">'+r.i+' / '+r.t+' GW</div></div>';
+  });
+  html+='<div class="leg"><div class="legitem"><div class="legsq" style="background:#639922"></div>מותקן</div><div class="legitem"><div class="legsq" style="background:#9FE1CB"></div>בהקמה</div><div class="legitem"><div class="legsq" style="background:var(--color-background-secondary)"></div>נדרש נוסף</div><div class="legitem"><div style="width:1.5px;height:10px;background:rgba(0,0,0,0.25)"></div>יעד 2035</div></div>';
+  html+='</div>';
+
+  html+='<div class="sec-hdr">6 מהלכי-על — לחץ לפרטים ולמעקב מעמיק</div>';
+  html+='<div class="igrid">';
+  INI.forEach(function(ini){
+    var tot=ini.acts.length;
+    var avg=Math.round(ini.acts.reduce(function(s,a){return s+a.p;},0)/tot);
+    var gwLine=ini.gwT
+      ?'<div style="font-size:19px;font-weight:500;color:var(--color-text-primary)">'+ini.gwI+' <span style="font-size:11px;color:var(--color-text-secondary)">/ '+ini.gwT+' GW</span></div>'
+      :'<div style="font-size:12px;color:var(--color-text-secondary);margin-bottom:4px">תשתית מאפשרת</div>';
+    html+='<div class="icard" onclick="go('+ini.id+')">';
+    html+='<div class="ihead"><div class="iico" style="background:'+ini.bg+'"><i class="ti '+ini.icon+'" style="font-size:15px;color:'+ini.txt+'" aria-hidden="true"></i></div><div class="ititle">'+ini.title+'</div></div>';
+    html+='<div class="isub">'+ini.sub+'</div>';
+    html+=gwLine;
+    html+='<div style="display:flex;align-items:center;gap:7px;margin-top:9px"><div style="flex:1;height:4px;background:var(--color-border-tertiary);border-radius:2px;overflow:hidden;direction:ltr"><div style="width:'+avg+'%;height:100%;background:'+ini.fill+';border-radius:2px"></div></div><div style="font-size:11px;color:var(--color-text-secondary);min-width:26px">'+avg+'%</div></div>';
+    html+='<div style="display:flex;gap:3px;margin-top:7px">'+dotStrip(ini.acts)+'</div>';
+    html+='<div style="font-size:10px;color:var(--color-text-tertiary);margin-top:5px">'+tot+' צעדי מדיניות</div>';
+    html+='</div>';
+  });
+  html+='</div>';
+  return html;
+}
+
+function renderDetail(id){
+  var ini=null;
+  for(var i=0;i<INI.length;i++){if(INI[i].id===id){ini=INI[i];break;}}
+  var done=0,prog=0,wait=0;
+  ini.acts.forEach(function(a){if(a.s==='done')done++;else if(a.s==='progress')prog++;else wait++;});
+
+  var html='<button class="back" onclick="go(\'overview\')"><i class="ti ti-arrow-right" aria-hidden="true"></i> חזרה למבט כולל</button>';
+  html+='<div class="dhead"><div class="dico" style="background:'+ini.bg+'"><i class="ti '+ini.icon+'" style="font-size:22px;color:'+ini.txt+'" aria-hidden="true"></i></div><div><div class="dtitle">'+ini.title+'</div><div class="dsub">'+ini.sub+'</div></div></div>';
+
+  if(ini.gwT){
+    var pI=p(ini.gwI||0,ini.gwT);
+    var pIC=p((ini.gwI||0)+(ini.gwC||0),ini.gwT);
+    html+='<div class="dkgrid">';
+    html+=kcard('מותקן',(ini.gwI||0)+' GW',pI+'% מהיעד',ini.fill,pI);
+    html+=kcard('בהקמה',(ini.gwC||0)+' GW','מצטבר: '+pIC+'%',ini.fill,null);
+    html+=kcard('יעד 2035',ini.gwT+' GW','הספק כולל ב-2035',ini.fill,null);
+    html+=kcard('נדרש עוד',ini.gwA+' GW',(100-pIC)+'% מהיעד',ini.fill,null);
+    html+='</div>';
+  } else if(ini.kpis){
+    html+='<div class="dkgrid">';
+    ini.kpis.forEach(function(k){html+=kcard(k.l,k.v,k.s,'#888780',null);});
+    html+='</div>';
+  }
+
+  html+='<div class="two-col">';
+
+  html+='<div><div class="sec-hdr">'+done+' הושלמו · '+prog+' בביצוע · '+wait+' ממתינים</div><div class="alist">';
+  ini.acts.forEach(function(a){
+    var sc=ST[a.s];
+    var imap={done:'ti-check',progress:'ti-player-play',early:'ti-clock',none:'ti-circle'};
+    html+='<div class="aitem" style="border-right:3px solid '+sc.fill+'">';
+    html+='<div class="arow"><div class="adic" style="background:'+sc.bg+'"><i class="ti '+imap[a.s]+'" style="font-size:10px;color:'+sc.text+'" aria-hidden="true"></i></div>';
+    html+='<div class="atitle">'+a.t+'</div>';
+    html+='<div class="atag" style="background:'+sc.bg+';color:'+sc.text+'">'+sc.label+'</div></div>';
+    html+='<div class="apbar"><div class="aptrack"><div class="apfill" style="width:'+a.p+'%;background:'+sc.fill+'"></div></div><div class="apval">'+a.p+'%</div></div>';
+    html+='</div>';
+  });
+  html+='</div></div>';
+
+  html+='<div>';
+  html+='<div class="sec-hdr">ציר אבני דרך</div>';
+  html+='<div class="tl"><div class="tl-line"></div><div class="tl-items">';
+  ini.ms.forEach(function(m){
+    var dc=m.d?ini.fill:'var(--color-background-primary)';
+    var bc=m.d?ini.fill:'var(--color-border-secondary)';
+    var yc=m.d?'var(--color-text-primary)':'var(--color-text-tertiary)';
+    var lc=m.d?'var(--color-text-secondary)':'var(--color-text-tertiary)';
+    html+='<div class="tlitem"><div class="tlyear" style="color:'+yc+'">'+m.y+'</div><div class="tldot" style="background:'+dc+';border-color:'+bc+'"></div><div class="tllabel" style="color:'+lc+'">'+m.l+'</div></div>';
+  });
+  html+='</div></div>';
+
+  html+='<div style="margin-top:16px"><div class="sec-hdr">פילוח צעדי מדיניות</div>';
+  ['done','progress','early','none'].forEach(function(s){
+    var cnt=ini.acts.filter(function(a){return a.s===s;}).length;
+    var sc=ST[s];
+    var w=Math.round((cnt/ini.acts.length)*100);
+    html+='<div class="sbrow"><div class="sblabel">'+sc.label+'</div><div class="sbtrack"><div class="sbfill" style="width:'+w+'%;background:'+sc.fill+'"></div></div><div class="sbval">'+cnt+'</div></div>';
+  });
+  html+='</div>';
+  html+='</div>';
+
+  html+='</div>';
+  return html;
+}
+
+function go(v){
+  document.getElementById('db').innerHTML=v==='overview'?renderOverview():renderDetail(v);
+}
+go('overview');
+</script>
