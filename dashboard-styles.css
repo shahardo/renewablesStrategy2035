@@ -471,3 +471,14 @@ h3 { font-size: 16px; font-weight: 500; }
   font-family: var(--font-sans);
   padding: 1rem 0;
 }
+
+/* ── Link card overrides ─────────────────────────── */
+a.icard {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+a.back {
+  text-decoration: none;
+}

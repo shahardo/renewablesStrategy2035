@@ -1,236 +1,252 @@
-<link rel="stylesheet" href="dashboard-styles.css">
-<h2 class="sr-only">לוח מעקב יישום תוכנית אנרגיות מתחדשות 2035 — KPIs ומדדי התקדמות לפי 6 מהלכי-על</h2>
-<div class="db" id="db"></div>
-<script>
-var ST={
-  done:{bg:'#EAF3DE',fill:'#639922',text:'#3B6D11',icon:'ti-check',label:'הושלם'},
-  progress:{bg:'#E6F1FB',fill:'#378ADD',text:'#185FA5',icon:'ti-player-play',label:'בביצוע'},
-  early:{bg:'#FAEEDA',fill:'#BA7517',text:'#854F0B',icon:'ti-clock',label:'בשלבים ראשונים'},
-  none:{bg:'#F1EFE8',fill:'#888780',text:'#5F5E5A',icon:'ti-circle',label:'טרם החל'}
-};
-var INI=[
-  {id:1,title:'מיצוי דו-שימוש',sub:'גגות · קירויים · תשתיות מים · שטחים מופרים',icon:'ti-building',bg:'#E6F1FB',txt:'#185FA5',fill:'#378ADD',
-    gwT:9.5,gwI:4.5,gwC:1.0,gwA:4.0,
-    acts:[
-      {t:'הרחבת חובת התקנה במבנים',s:'done',p:100},
-      {t:'מודלים מתקדמים לתמרוץ',s:'progress',p:45},
-      {t:'ודאות רגולטורית ארוכת טווח',s:'progress',p:40},
-      {t:'הרחבת מיפוי פוטנציאל דו-שימוש',s:'progress',p:55},
-      {t:'חיזוק תפקיד השלטון המקומי',s:'early',p:15},
-      {t:'הסרת חסמים לגדרות ומחלפים',s:'early',p:10},
-      {t:'האצת קירויים סולאריים',s:'early',p:15},
-      {t:'כיסוי תשתיות מים וחממות',s:'early',p:20},
-      {t:'פישוט רגולציה לגגות קטנים',s:'done',p:80},
-      {t:'מנגנוני ייצור בבניינים משותפים',s:'early',p:20}
-    ],
-    ms:[{y:'2022',l:'פרמיה אורבנית',d:true},{y:'2024',l:'פטור היתר 700kW',d:true},{y:'2026',l:'מאה אלף גגות',d:true},{y:'2027',l:'חובת התקנה רחבה',d:false},{y:'2030',l:'8 GW דו-שימוש',d:false},{y:'2035',l:'יעד 9.5 GW',d:false}]
-  },
-  {id:2,title:'אגרו-וולטאי',sub:'שילוב ייצור חשמל עם פעילות חקלאית',icon:'ti-plant',bg:'#EAF3DE',txt:'#3B6D11',fill:'#639922',
-    gwT:5.0,gwI:0.01,gwC:0,gwA:5.0,
-    acts:[
-      {t:'יישום תמ"א 24/1 לאגרו-וולטאי',s:'done',p:100},
-      {t:'עדכון עיתי אסדרה תכנונית',s:'progress',p:30},
-      {t:'הקלות תכנוניות וקנייניות',s:'progress',p:40},
-      {t:'יעדי אישור תוכניות למחוזות',s:'early',p:20},
-      {t:'הקצאת משאבים ותמיכה במחקר',s:'progress',p:35},
-      {t:'הקמת מסד ידע לאומי',s:'none',p:0}
-    ],
-    ms:[{y:'2021',l:'צוות בין-משרדי',d:true},{y:'2023',l:'תוכנית פיילוטים',d:true},{y:'2026',l:'אישור תמ"א 24/1',d:true},{y:'2027',l:'200 MW מסחרי',d:false},{y:'2030',l:'2 GW',d:false},{y:'2035',l:'יעד 5 GW',d:false}]
-  },
-  {id:3,title:'מתקנים קרקעיים',sub:'מתחמים גדולים · אזורי REZ · קרקעות מדינה',icon:'ti-solar-panel',bg:'#FAEEDA',txt:'#854F0B',fill:'#BA7517',
-    gwT:10.5,gwI:3.5,gwC:3.0,gwA:4.5,
-    acts:[
-      {t:'מיפוי ושיווק אזורי אנרגיה רחבי היקף',s:'progress',p:35},
-      {t:'הכרה במתחמים כתשתיות חיוניות',s:'none',p:0},
-      {t:'מנגנון תיאום בין-משרדי לקרקעי',s:'early',p:15},
-      {t:'קריטריונים לקרקע פוטנציאל נמוך',s:'progress',p:40},
-      {t:'הרחבת המכסה התכנונית 2030+',s:'done',p:70},
-      {t:'התאמת מסלולי תכנון',s:'progress',p:30},
-      {t:'הארכת חכירה ושחלוף פאנלים',s:'none',p:0}
-    ],
-    ms:[{y:'2020',l:'מכסה 60K דונם',d:true},{y:'2024',l:'מכרזים 100+ MW',d:true},{y:'2026',l:'תכנון אורון-צין',d:false},{y:'2028',l:'REZ ראשונים',d:false},{y:'2032',l:'8 GW קרקעי',d:false},{y:'2035',l:'יעד 10.5 GW',d:false}]
-  },
-  {id:4,title:'רשת ואגירה',sub:'תשתית מאפשרת · רשת חכמה · קיבולת קליטה',icon:'ti-bolt',bg:'#EEEDFE',txt:'#534AB7',fill:'#7F77DD',
-    gwT:null,gwI:null,gwC:null,gwA:null,
-    kpis:[{l:'השקעה ברשת אושרה',v:'₪39B',s:'הולכה + חלוקה'},{l:'אגירה מתוכננת',v:'9+ GW',s:'יעד 2030'},{l:'צעדים בביצוע',v:'5/11',s:'מתוך 11 צעדים'},{l:'תשובות מחלק חיוביות',v:'~60%',s:'יעד: 90%+'}],
-    acts:[
-      {t:'תיאום קבוע רשת-מתחדשות',s:'progress',p:40},
-      {t:'מסלול תכנון לאומי לרשת (ות"ל)',s:'none',p:0},
-      {t:'מסלול טרום-תכנוני לתשתיות',s:'none',p:5},
-      {t:'רגולציה לרשת גמישה ודינמית',s:'progress',p:35},
-      {t:'כלים דיגיטליים לרשת חכמה',s:'progress',p:50},
-      {t:'הסדרת אגרגטורים',s:'none',p:5},
-      {t:'רגולציה למיקרו-גרידים',s:'none',p:0},
-      {t:'חיבור חוות שרתים לאגירה מקומית',s:'none',p:0},
-      {t:'אסדרה לאגירה במתח נמוך',s:'progress',p:45},
-      {t:'התאמת דרישות בטיחות לאגירה',s:'progress',p:30},
-      {t:'תוכנית לאומית לאגירה',s:'none',p:0}
-    ],
-    ms:[{y:'2023',l:'אישור פר"ח ₪22B',d:true},{y:'2024',l:'ADMS חב\' החשמל',d:true},{y:'2026',l:'ות"ל לרשת',d:false},{y:'2028',l:'5 GW אגירה',d:false},{y:'2030',l:'9 GW אגירה',d:false},{y:'2035',l:'רשת חכמה מלאה',d:false}]
-  },
-  {id:5,title:'הובלה ממשלתית',sub:'תיאום · יעדים סגמנטליים · דוגמה ממשלתית',icon:'ti-building-community',bg:'#FAECE7',txt:'#993C1D',fill:'#D85A30',
-    gwT:null,gwI:null,gwC:null,gwA:null,
-    kpis:[{l:'יעדים סגמנטליים',v:'טרם נקבעו',s:'בהחלטת ממשלה'},{l:'מנגנון בין-משרדי',v:'בהקמה',s:'פורום קבוע'},{l:'מבני ציבור עם סולאר',v:'~30%',s:'יעד: 80%'},{l:'GIS לאומי',v:'חלקי',s:'בפיתוח'}],
-    acts:[
-      {t:'יעדים סגמנטליים בהחלטת ממשלה',s:'none',p:5},
-      {t:'מנגנון תיאום בין-משרדי קבוע',s:'progress',p:30},
-      {t:'משרד האנרגיה כגורם מתכלל',s:'progress',p:50},
-      {t:'מערכת GIS ממשלתית אחודה',s:'early',p:20},
-      {t:'One-Stop-Shop רגולטורי',s:'none',p:0},
-      {t:'התקנה על 80% ממבני ציבור',s:'progress',p:30},
-      {t:'יעדים לחברות ממשלתיות',s:'none',p:5},
-      {t:'מסגרת לפוטנציאל ביטחוני',s:'none',p:0}
-    ],
-    ms:[{y:'2020',l:'החלטת ממשלה 465',d:true},{y:'2025',l:'מפת דרכים עדכון',d:true},{y:'2026',l:'תוכנית לאומית',d:true},{y:'2026',l:'יעדים סגמנטליים',d:false},{y:'2027',l:'GIS + One-Stop',d:false},{y:'2028',l:'מנגנון מלא',d:false}]
-  },
-  {id:6,title:'טכנולוגיות נוספות',sub:'גיוון תמהיל · חדשנות · היערכות לטווח ארוך',icon:'ti-atom',bg:'#FBEAF0',txt:'#993556',fill:'#D4537E',
-    gwT:1.0,gwI:0.5,gwC:0.25,gwA:0.5,
-    acts:[
-      {t:'עדכון מסגרת רגולטורית לטכנולוגיות',s:'early',p:15},
-      {t:'ארגז חול רגולטורי לחדשנות',s:'none',p:0},
-      {t:'הרחבת תמיכה תקציבית במו"פ',s:'progress',p:40},
-      {t:'מיפוי טכנולוגיות ייחודיות לישראל',s:'early',p:20}
-    ],
-    ms:[{y:'2022',l:'תרמו-סולארי אשלים',d:true},{y:'2025',l:'פיילוטים ביומסה',d:true},{y:'2027',l:'ארגז חול',d:false},{y:'2029',l:'PVT מסחרי',d:false},{y:'2032',l:'אנרגיה ימית',d:false},{y:'2035',l:'יעד 1 GW',d:false}]
-  }
-];
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>לוח מעקב — אנרגיות מתחדשות 2035</title>
+  <link rel="stylesheet" href="dashboard-styles.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+</head>
+<body>
+<div class="db">
+  <h2 class="sr-only">לוח מעקב יישום תוכנית אנרגיות מתחדשות 2035 — KPIs ומדדי התקדמות לפי 6 מהלכי-על</h2>
 
-function p(a,b){return b?Math.round((a/b)*100):0;}
+  <div class="kgrid">
+    <div class="kcard">
+      <div class="klabel">הספק מותקן</div>
+      <div class="kval">8 GW</div>
+      <div class="ksub">מתוך יעד 26 GW</div>
+      <div class="kpbar"><div class="kpfill" style="width:31%;background:#639922"></div></div>
+    </div>
+    <div class="kcard">
+      <div class="klabel">בשלבי הקמה</div>
+      <div class="kval">4 GW</div>
+      <div class="ksub">46% כולל הקמה</div>
+    </div>
+    <div class="kcard">
+      <div class="klabel">נתח מתחדשות</div>
+      <div class="kval">16%</div>
+      <div class="ksub">יעד 35–40% ב-2035</div>
+      <div class="kpbar"><div class="kpfill" style="width:40%;background:#BA7517"></div></div>
+    </div>
+    <div class="kcard">
+      <div class="klabel">קצב התקנה</div>
+      <div class="kval">1 GW/שנה</div>
+      <div class="ksub">יעד 1.8 GW/שנה</div>
+      <div class="kpbar"><div class="kpfill" style="width:56%;background:#D85A30"></div></div>
+    </div>
+    <div class="kcard">
+      <div class="klabel">צעדי מדיניות</div>
+      <div class="kval">8/46</div>
+      <div class="ksub">הושלמו מתוך 46 צעדים</div>
+      <div class="kpbar"><div class="kpfill" style="width:17%;background:#7F77DD"></div></div>
+    </div>
+  </div>
 
-function kcard(label,val,sub,fill,pct){
-  var bar=pct!=null?'<div class="kpbar"><div class="kpfill" style="width:'+pct+'%;background:'+fill+'"></div></div>':'';
-  return '<div class="kcard"><div class="klabel">'+label+'</div><div class="kval">'+val+'</div><div class="ksub">'+sub+'</div>'+bar+'</div>';
-}
+  <div class="panel">
+    <div class="sec-hdr">מסלול קיבולת לעמידה ביעד 26 GW ב-2035</div>
 
-function dotStrip(acts){
-  return acts.map(function(a){
-    var c=a.s==='done'?'#639922':a.s==='progress'?'#378ADD':a.s==='early'?'#BA7517':'var(--color-border-tertiary)';
-    return '<div style="height:5px;flex:1;border-radius:2px;background:'+c+'"></div>';
-  }).join('');
-}
+    <div class="caprow">
+      <div class="caplabel">קרקעי</div>
+      <div class="captrack">
+        <div style="position:absolute;top:0;left:0;width:29%;height:100%;background:#BA7517"></div>
+        <div style="position:absolute;top:0;left:29%;width:25%;height:100%;background:#FAC775"></div>
+        <div style="position:absolute;top:0;left:88%;width:1.5px;height:100%;background:rgba(0,0,0,0.2)"></div>
+      </div>
+      <div class="capval">3.5 / 10.5 GW</div>
+    </div>
+    <div class="caprow">
+      <div class="caplabel">דו-שימוש</div>
+      <div class="captrack">
+        <div style="position:absolute;top:0;left:0;width:38%;height:100%;background:#378ADD"></div>
+        <div style="position:absolute;top:0;left:38%;width:8%;height:100%;background:#B5D4F4"></div>
+        <div style="position:absolute;top:0;left:79%;width:1.5px;height:100%;background:rgba(0,0,0,0.2)"></div>
+      </div>
+      <div class="capval">4.5 / 9.5 GW</div>
+    </div>
+    <div class="caprow">
+      <div class="caplabel">אגרו-וולטאי</div>
+      <div class="captrack">
+        <div style="position:absolute;top:0;left:42%;width:1.5px;height:100%;background:rgba(0,0,0,0.2)"></div>
+      </div>
+      <div class="capval">0.01 / 5 GW</div>
+    </div>
+    <div class="caprow">
+      <div class="caplabel">טכנולוגיות</div>
+      <div class="captrack">
+        <div style="position:absolute;top:0;left:0;width:4%;height:100%;background:#D4537E"></div>
+        <div style="position:absolute;top:0;left:4%;width:2%;height:100%;background:#F4C0D1"></div>
+        <div style="position:absolute;top:0;left:8%;width:1.5px;height:100%;background:rgba(0,0,0,0.2)"></div>
+      </div>
+      <div class="capval">0.5 / 1 GW</div>
+    </div>
 
-function renderOverview(){
-  var html='';
-  html+='<div class="kgrid">';
-  html+=kcard('הספק מותקן','8 GW','מתוך יעד 26 GW','#639922',p(8,26));
-  html+=kcard('בשלבי הקמה','4 GW',p(12,26)+'% כולל הקמה','#9FE1CB',null);
-  html+=kcard('נתח מתחדשות','16%','יעד 35–40% ב-2035','#BA7517',p(16,40));
-  html+=kcard('קצב התקנה','1 GW/שנה','יעד 1.8 GW/שנה','#D85A30',p(10,18));
-  html+=kcard('צעדי מדיניות','8/46','הושלמו מתוך 46 צעדים','#7F77DD',p(8,46));
-  html+='</div>';
+    <div class="leg">
+      <div class="legitem"><div class="legsq" style="background:#639922"></div>מותקן</div>
+      <div class="legitem"><div class="legsq" style="background:#9FE1CB"></div>בהקמה</div>
+      <div class="legitem"><div class="legsq" style="background:var(--color-background-secondary)"></div>נדרש נוסף</div>
+      <div class="legitem"><div style="width:1.5px;height:10px;background:rgba(0,0,0,0.25)"></div>יעד 2035</div>
+    </div>
+  </div>
 
-  var mx=12;
-  var cd=[
-    {l:'קרקעי',i:3.5,c:3.0,t:10.5,fi:'#BA7517',fc:'#FAC775'},
-    {l:'דו-שימוש',i:4.5,c:1.0,t:9.5,fi:'#378ADD',fc:'#B5D4F4'},
-    {l:'אגרו-וולטאי',i:0.01,c:0,t:5.0,fi:'#639922',fc:'#9FE1CB'},
-    {l:'טכנולוגיות',i:0.5,c:0.25,t:1.0,fi:'#D4537E',fc:'#F4C0D1'}
-  ];
-  html+='<div class="panel">';
-  html+='<div class="sec-hdr">מסלול קיבולת לעמידה ביעד 26 GW ב-2035</div>';
-  cd.forEach(function(r){
-    var iw=Math.round((r.i/mx)*100);
-    var cw=Math.round((r.c/mx)*100);
-    var tw=Math.round((r.t/mx)*100);
-    html+='<div class="caprow"><div class="caplabel">'+r.l+'</div>';
-    html+='<div class="captrack">';
-    html+='<div style="position:absolute;top:0;left:0;width:'+iw+'%;height:100%;background:'+r.fi+'"></div>';
-    html+='<div style="position:absolute;top:0;left:'+iw+'%;width:'+cw+'%;height:100%;background:'+r.fc+'"></div>';
-    html+='<div style="position:absolute;top:0;left:'+tw+'%;width:1.5px;height:100%;background:rgba(0,0,0,0.2)"></div>';
-    html+='</div>';
-    html+='<div class="capval">'+r.i+' / '+r.t+' GW</div></div>';
-  });
-  html+='<div class="leg"><div class="legitem"><div class="legsq" style="background:#639922"></div>מותקן</div><div class="legitem"><div class="legsq" style="background:#9FE1CB"></div>בהקמה</div><div class="legitem"><div class="legsq" style="background:var(--color-background-secondary)"></div>נדרש נוסף</div><div class="legitem"><div style="width:1.5px;height:10px;background:rgba(0,0,0,0.25)"></div>יעד 2035</div></div>';
-  html+='</div>';
+  <div class="sec-hdr">6 מהלכי-על — לחץ לפרטים ולמעקב מעמיק</div>
+  <div class="igrid">
 
-  html+='<div class="sec-hdr">6 מהלכי-על — לחץ לפרטים ולמעקב מעמיק</div>';
-  html+='<div class="igrid">';
-  INI.forEach(function(ini){
-    var tot=ini.acts.length;
-    var avg=Math.round(ini.acts.reduce(function(s,a){return s+a.p;},0)/tot);
-    var gwLine=ini.gwT
-      ?'<div style="font-size:19px;font-weight:500;color:var(--color-text-primary)">'+ini.gwI+' <span style="font-size:11px;color:var(--color-text-secondary)">/ '+ini.gwT+' GW</span></div>'
-      :'<div style="font-size:12px;color:var(--color-text-secondary);margin-bottom:4px">תשתית מאפשרת</div>';
-    html+='<div class="icard" onclick="go('+ini.id+')">';
-    html+='<div class="ihead"><div class="iico" style="background:'+ini.bg+'"><i class="ti '+ini.icon+'" style="font-size:15px;color:'+ini.txt+'" aria-hidden="true"></i></div><div class="ititle">'+ini.title+'</div></div>';
-    html+='<div class="isub">'+ini.sub+'</div>';
-    html+=gwLine;
-    html+='<div style="display:flex;align-items:center;gap:7px;margin-top:9px"><div style="flex:1;height:4px;background:var(--color-border-tertiary);border-radius:2px;overflow:hidden;direction:ltr"><div style="width:'+avg+'%;height:100%;background:'+ini.fill+';border-radius:2px"></div></div><div style="font-size:11px;color:var(--color-text-secondary);min-width:26px">'+avg+'%</div></div>';
-    html+='<div style="display:flex;gap:3px;margin-top:7px">'+dotStrip(ini.acts)+'</div>';
-    html+='<div style="font-size:10px;color:var(--color-text-tertiary);margin-top:5px">'+tot+' צעדי מדיניות</div>';
-    html+='</div>';
-  });
-  html+='</div>';
-  return html;
-}
+    <a class="icard" href="dualuse.html">
+      <div class="ihead">
+        <div class="iico" style="background:#E6F1FB"><i class="ti ti-building" style="font-size:15px;color:#185FA5" aria-hidden="true"></i></div>
+        <div class="ititle">מיצוי דו-שימוש</div>
+      </div>
+      <div class="isub">גגות · קירויים · תשתיות מים · שטחים מופרים</div>
+      <div style="font-size:19px;font-weight:500;color:var(--color-text-primary)">4.5 <span style="font-size:11px;color:var(--color-text-secondary)">/ 9.5 GW</span></div>
+      <div style="display:flex;align-items:center;gap:7px;margin-top:9px">
+        <div style="flex:1;height:4px;background:var(--color-border-tertiary);border-radius:2px;overflow:hidden;direction:ltr">
+          <div style="width:40%;height:100%;background:#378ADD;border-radius:2px"></div>
+        </div>
+        <div style="font-size:11px;color:var(--color-text-secondary);min-width:26px">40%</div>
+      </div>
+      <div style="display:flex;gap:3px;margin-top:7px">
+        <div style="height:5px;flex:1;border-radius:2px;background:#639922"></div>
+        <div style="height:5px;flex:1;border-radius:2px;background:#378ADD"></div>
+        <div style="height:5px;flex:1;border-radius:2px;background:#378ADD"></div>
+        <div style="height:5px;flex:1;border-radius:2px;background:#378ADD"></div>
+        <div style="height:5px;flex:1;border-radius:2px;background:#BA7517"></div>
+        <div style="height:5px;flex:1;border-radius:2px;background:#BA7517"></div>
+        <div style="height:5px;flex:1;border-radius:2px;background:#BA7517"></div>
+        <div style="height:5px;flex:1;border-radius:2px;background:#BA7517"></div>
+        <div style="height:5px;flex:1;border-radius:2px;background:#639922"></div>
+        <div style="height:5px;flex:1;border-radius:2px;background:#BA7517"></div>
+      </div>
+      <div style="font-size:10px;color:var(--color-text-tertiary);margin-top:5px">10 צעדי מדיניות</div>
+    </a>
 
-function renderDetail(id){
-  var ini=null;
-  for(var i=0;i<INI.length;i++){if(INI[i].id===id){ini=INI[i];break;}}
-  var done=0,prog=0,wait=0;
-  ini.acts.forEach(function(a){if(a.s==='done')done++;else if(a.s==='progress')prog++;else wait++;});
+    <a class="icard" href="agrovoltaics.html">
+      <div class="ihead">
+        <div class="iico" style="background:#EAF3DE"><i class="ti ti-plant" style="font-size:15px;color:#3B6D11" aria-hidden="true"></i></div>
+        <div class="ititle">אגרו-וולטאי</div>
+      </div>
+      <div class="isub">שילוב ייצור חשמל עם פעילות חקלאית</div>
+      <div style="font-size:19px;font-weight:500;color:var(--color-text-primary)">0.01 <span style="font-size:11px;color:var(--color-text-secondary)">/ 5 GW</span></div>
+      <div style="display:flex;align-items:center;gap:7px;margin-top:9px">
+        <div style="flex:1;height:4px;background:var(--color-border-tertiary);border-radius:2px;overflow:hidden;direction:ltr">
+          <div style="width:38%;height:100%;background:#639922;border-radius:2px"></div>
+        </div>
+        <div style="font-size:11px;color:var(--color-text-secondary);min-width:26px">38%</div>
+      </div>
+      <div style="display:flex;gap:3px;margin-top:7px">
+        <div style="height:5px;flex:1;border-radius:2px;background:#639922"></div>
+        <div style="height:5px;flex:1;border-radius:2px;background:#378ADD"></div>
+        <div style="height:5px;flex:1;border-radius:2px;background:#378ADD"></div>
+        <div style="height:5px;flex:1;border-radius:2px;background:#BA7517"></div>
+        <div style="height:5px;flex:1;border-radius:2px;background:#378ADD"></div>
+        <div style="height:5px;flex:1;border-radius:2px;background:var(--color-border-tertiary)"></div>
+      </div>
+      <div style="font-size:10px;color:var(--color-text-tertiary);margin-top:5px">6 צעדי מדיניות</div>
+    </a>
 
-  var html='<button class="back" onclick="go(\'overview\')"><i class="ti ti-arrow-right" aria-hidden="true"></i> חזרה למבט כולל</button>';
-  html+='<div class="dhead"><div class="dico" style="background:'+ini.bg+'"><i class="ti '+ini.icon+'" style="font-size:22px;color:'+ini.txt+'" aria-hidden="true"></i></div><div><div class="dtitle">'+ini.title+'</div><div class="dsub">'+ini.sub+'</div></div></div>';
+    <a class="icard" href="landsystems.html">
+      <div class="ihead">
+        <div class="iico" style="background:#FAEEDA"><i class="ti ti-solar-panel" style="font-size:15px;color:#854F0B" aria-hidden="true"></i></div>
+        <div class="ititle">מתקנים קרקעיים</div>
+      </div>
+      <div class="isub">מתחמים גדולים · אזורי REZ · קרקעות מדינה</div>
+      <div style="font-size:19px;font-weight:500;color:var(--color-text-primary)">3.5 <span style="font-size:11px;color:var(--color-text-secondary)">/ 10.5 GW</span></div>
+      <div style="display:flex;align-items:center;gap:7px;margin-top:9px">
+        <div style="flex:1;height:4px;background:var(--color-border-tertiary);border-radius:2px;overflow:hidden;direction:ltr">
+          <div style="width:27%;height:100%;background:#BA7517;border-radius:2px"></div>
+        </div>
+        <div style="font-size:11px;color:var(--color-text-secondary);min-width:26px">27%</div>
+      </div>
+      <div style="display:flex;gap:3px;margin-top:7px">
+        <div style="height:5px;flex:1;border-radius:2px;background:#378ADD"></div>
+        <div style="height:5px;flex:1;border-radius:2px;background:var(--color-border-tertiary)"></div>
+        <div style="height:5px;flex:1;border-radius:2px;background:#BA7517"></div>
+        <div style="height:5px;flex:1;border-radius:2px;background:#378ADD"></div>
+        <div style="height:5px;flex:1;border-radius:2px;background:#639922"></div>
+        <div style="height:5px;flex:1;border-radius:2px;background:#378ADD"></div>
+        <div style="height:5px;flex:1;border-radius:2px;background:var(--color-border-tertiary)"></div>
+      </div>
+      <div style="font-size:10px;color:var(--color-text-tertiary);margin-top:5px">7 צעדי מדיניות</div>
+    </a>
 
-  if(ini.gwT){
-    var pI=p(ini.gwI||0,ini.gwT);
-    var pIC=p((ini.gwI||0)+(ini.gwC||0),ini.gwT);
-    html+='<div class="dkgrid">';
-    html+=kcard('מותקן',(ini.gwI||0)+' GW',pI+'% מהיעד',ini.fill,pI);
-    html+=kcard('בהקמה',(ini.gwC||0)+' GW','מצטבר: '+pIC+'%',ini.fill,null);
-    html+=kcard('יעד 2035',ini.gwT+' GW','הספק כולל ב-2035',ini.fill,null);
-    html+=kcard('נדרש עוד',ini.gwA+' GW',(100-pIC)+'% מהיעד',ini.fill,null);
-    html+='</div>';
-  } else if(ini.kpis){
-    html+='<div class="dkgrid">';
-    ini.kpis.forEach(function(k){html+=kcard(k.l,k.v,k.s,'#888780',null);});
-    html+='</div>';
-  }
+    <a class="icard" href="gridnstorage.html">
+      <div class="ihead">
+        <div class="iico" style="background:#EEEDFE"><i class="ti ti-bolt" style="font-size:15px;color:#534AB7" aria-hidden="true"></i></div>
+        <div class="ititle">רשת ואגירה</div>
+      </div>
+      <div class="isub">תשתית מאפשרת · רשת חכמה · קיבולת קליטה</div>
+      <div style="font-size:12px;color:var(--color-text-secondary);margin-bottom:4px">תשתית מאפשרת</div>
+      <div style="display:flex;align-items:center;gap:7px;margin-top:9px">
+        <div style="flex:1;height:4px;background:var(--color-border-tertiary);border-radius:2px;overflow:hidden;direction:ltr">
+          <div style="width:19%;height:100%;background:#7F77DD;border-radius:2px"></div>
+        </div>
+        <div style="font-size:11px;color:var(--color-text-secondary);min-width:26px">19%</div>
+      </div>
+      <div style="display:flex;gap:3px;margin-top:7px">
+        <div style="height:5px;flex:1;border-radius:2px;background:#378ADD"></div>
+        <div style="height:5px;flex:1;border-radius:2px;background:var(--color-border-tertiary)"></div>
+        <div style="height:5px;flex:1;border-radius:2px;background:var(--color-border-tertiary)"></div>
+        <div style="height:5px;flex:1;border-radius:2px;background:#378ADD"></div>
+        <div style="height:5px;flex:1;border-radius:2px;background:#378ADD"></div>
+        <div style="height:5px;flex:1;border-radius:2px;background:var(--color-border-tertiary)"></div>
+        <div style="height:5px;flex:1;border-radius:2px;background:var(--color-border-tertiary)"></div>
+        <div style="height:5px;flex:1;border-radius:2px;background:var(--color-border-tertiary)"></div>
+        <div style="height:5px;flex:1;border-radius:2px;background:#378ADD"></div>
+        <div style="height:5px;flex:1;border-radius:2px;background:#378ADD"></div>
+        <div style="height:5px;flex:1;border-radius:2px;background:var(--color-border-tertiary)"></div>
+      </div>
+      <div style="font-size:10px;color:var(--color-text-tertiary);margin-top:5px">11 צעדי מדיניות</div>
+    </a>
 
-  html+='<div class="two-col">';
+    <a class="icard" href="govleadership.html">
+      <div class="ihead">
+        <div class="iico" style="background:#FAECE7"><i class="ti ti-building-community" style="font-size:15px;color:#993C1D" aria-hidden="true"></i></div>
+        <div class="ititle">הובלה ממשלתית</div>
+      </div>
+      <div class="isub">תיאום · יעדים סגמנטליים · דוגמה ממשלתית</div>
+      <div style="font-size:12px;color:var(--color-text-secondary);margin-bottom:4px">תשתית מאפשרת</div>
+      <div style="display:flex;align-items:center;gap:7px;margin-top:9px">
+        <div style="flex:1;height:4px;background:var(--color-border-tertiary);border-radius:2px;overflow:hidden;direction:ltr">
+          <div style="width:18%;height:100%;background:#D85A30;border-radius:2px"></div>
+        </div>
+        <div style="font-size:11px;color:var(--color-text-secondary);min-width:26px">18%</div>
+      </div>
+      <div style="display:flex;gap:3px;margin-top:7px">
+        <div style="height:5px;flex:1;border-radius:2px;background:var(--color-border-tertiary)"></div>
+        <div style="height:5px;flex:1;border-radius:2px;background:#378ADD"></div>
+        <div style="height:5px;flex:1;border-radius:2px;background:#378ADD"></div>
+        <div style="height:5px;flex:1;border-radius:2px;background:#BA7517"></div>
+        <div style="height:5px;flex:1;border-radius:2px;background:var(--color-border-tertiary)"></div>
+        <div style="height:5px;flex:1;border-radius:2px;background:#378ADD"></div>
+        <div style="height:5px;flex:1;border-radius:2px;background:var(--color-border-tertiary)"></div>
+        <div style="height:5px;flex:1;border-radius:2px;background:var(--color-border-tertiary)"></div>
+      </div>
+      <div style="font-size:10px;color:var(--color-text-tertiary);margin-top:5px">8 צעדי מדיניות</div>
+    </a>
 
-  html+='<div><div class="sec-hdr">'+done+' הושלמו · '+prog+' בביצוע · '+wait+' ממתינים</div><div class="alist">';
-  ini.acts.forEach(function(a){
-    var sc=ST[a.s];
-    var imap={done:'ti-check',progress:'ti-player-play',early:'ti-clock',none:'ti-circle'};
-    html+='<div class="aitem" style="border-right:3px solid '+sc.fill+'">';
-    html+='<div class="arow"><div class="adic" style="background:'+sc.bg+'"><i class="ti '+imap[a.s]+'" style="font-size:10px;color:'+sc.text+'" aria-hidden="true"></i></div>';
-    html+='<div class="atitle">'+a.t+'</div>';
-    html+='<div class="atag" style="background:'+sc.bg+';color:'+sc.text+'">'+sc.label+'</div></div>';
-    html+='<div class="apbar"><div class="aptrack"><div class="apfill" style="width:'+a.p+'%;background:'+sc.fill+'"></div></div><div class="apval">'+a.p+'%</div></div>';
-    html+='</div>';
-  });
-  html+='</div></div>';
+    <a class="icard" href="technologies.html">
+      <div class="ihead">
+        <div class="iico" style="background:#FBEAF0"><i class="ti ti-atom" style="font-size:15px;color:#993556" aria-hidden="true"></i></div>
+        <div class="ititle">טכנולוגיות נוספות</div>
+      </div>
+      <div class="isub">גיוון תמהיל · חדשנות · היערכות לטווח ארוך</div>
+      <div style="font-size:19px;font-weight:500;color:var(--color-text-primary)">0.5 <span style="font-size:11px;color:var(--color-text-secondary)">/ 1 GW</span></div>
+      <div style="display:flex;align-items:center;gap:7px;margin-top:9px">
+        <div style="flex:1;height:4px;background:var(--color-border-tertiary);border-radius:2px;overflow:hidden;direction:ltr">
+          <div style="width:19%;height:100%;background:#D4537E;border-radius:2px"></div>
+        </div>
+        <div style="font-size:11px;color:var(--color-text-secondary);min-width:26px">19%</div>
+      </div>
+      <div style="display:flex;gap:3px;margin-top:7px">
+        <div style="height:5px;flex:1;border-radius:2px;background:#BA7517"></div>
+        <div style="height:5px;flex:1;border-radius:2px;background:var(--color-border-tertiary)"></div>
+        <div style="height:5px;flex:1;border-radius:2px;background:#378ADD"></div>
+        <div style="height:5px;flex:1;border-radius:2px;background:#BA7517"></div>
+      </div>
+      <div style="font-size:10px;color:var(--color-text-tertiary);margin-top:5px">4 צעדי מדיניות</div>
+    </a>
 
-  html+='<div>';
-  html+='<div class="sec-hdr">ציר אבני דרך</div>';
-  html+='<div class="tl"><div class="tl-line"></div><div class="tl-items">';
-  ini.ms.forEach(function(m){
-    var dc=m.d?ini.fill:'var(--color-background-primary)';
-    var bc=m.d?ini.fill:'var(--color-border-secondary)';
-    var yc=m.d?'var(--color-text-primary)':'var(--color-text-tertiary)';
-    var lc=m.d?'var(--color-text-secondary)':'var(--color-text-tertiary)';
-    html+='<div class="tlitem"><div class="tlyear" style="color:'+yc+'">'+m.y+'</div><div class="tldot" style="background:'+dc+';border-color:'+bc+'"></div><div class="tllabel" style="color:'+lc+'">'+m.l+'</div></div>';
-  });
-  html+='</div></div>';
-
-  html+='<div style="margin-top:16px"><div class="sec-hdr">פילוח צעדי מדיניות</div>';
-  ['done','progress','early','none'].forEach(function(s){
-    var cnt=ini.acts.filter(function(a){return a.s===s;}).length;
-    var sc=ST[s];
-    var w=Math.round((cnt/ini.acts.length)*100);
-    html+='<div class="sbrow"><div class="sblabel">'+sc.label+'</div><div class="sbtrack"><div class="sbfill" style="width:'+w+'%;background:'+sc.fill+'"></div></div><div class="sbval">'+cnt+'</div></div>';
-  });
-  html+='</div>';
-  html+='</div>';
-
-  html+='</div>';
-  return html;
-}
-
-function go(v){
-  document.getElementById('db').innerHTML=v==='overview'?renderOverview():renderDetail(v);
-}
-go('overview');
-</script>
+  </div>
+</div>
+</body>
+</html>
