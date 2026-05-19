@@ -1,0 +1,258 @@
+{
+  "dashboard": {
+    "kpis": [
+      { "label": "הספק מותקן",   "value": "8 GW",      "sub": "מתוך יעד 26 GW",          "progress": 31, "color": "#639922" },
+      { "label": "בשלבי הקמה",   "value": "4 GW",      "sub": "46% כולל הקמה" },
+      { "label": "נתח מתחדשות",  "value": "16%",       "sub": "יעד 35–40% ב-2035",       "progress": 40, "color": "#BA7517" },
+      { "label": "קצב התקנה",    "value": "1 GW/שנה",  "sub": "יעד 1.8 GW/שנה",          "progress": 56, "color": "#D85A30" },
+      { "label": "צעדי מדיניות", "value": "8/46",      "sub": "הושלמו מתוך 46 צעדים",    "progress": 17, "color": "#7F77DD" }
+    ],
+    "capacityTracks": [
+      {
+        "label": "קרקעי",
+        "fills": [
+          { "left": 0,  "width": 29, "color": "#BA7517" },
+          { "left": 29, "width": 25, "color": "#FAC775" }
+        ],
+        "target": 88,
+        "capval": "3.5 / 10.5 GW"
+      },
+      {
+        "label": "דו-שימוש",
+        "fills": [
+          { "left": 0,  "width": 38, "color": "#378ADD" },
+          { "left": 38, "width": 8,  "color": "#B5D4F4" }
+        ],
+        "target": 79,
+        "capval": "4.5 / 9.5 GW"
+      },
+      {
+        "label": "אגרו-וולטאי",
+        "fills": [],
+        "target": 42,
+        "capval": "0.01 / 5 GW"
+      },
+      {
+        "label": "טכנולוגיות",
+        "fills": [
+          { "left": 0, "width": 4, "color": "#D4537E" },
+          { "left": 4, "width": 2, "color": "#F4C0D1" }
+        ],
+        "target": 8,
+        "capval": "0.5 / 1 GW"
+      }
+    ]
+  },
+  "initiatives": [
+    {
+      "id": "dualuse",
+      "title": "מיצוי דו-שימוש",
+      "subtitle": "גגות · קירויים · תשתיות מים · שטחים מופרים",
+      "icon": "ti-building",
+      "iconBg": "#E6F1FB",
+      "iconColor": "#185FA5",
+      "color": "#378ADD",
+      "type": "gw",
+      "gwCurrent": 4.5,
+      "gwTarget": 9.5,
+      "detailKpis": [
+        { "label": "מותקן",    "value": "4.5 GW", "sub": "47% מהיעד",         "progress": 47, "color": "#378ADD" },
+        { "label": "בהקמה",    "value": "1 GW",   "sub": "מצטבר: 58%" },
+        { "label": "יעד 2035", "value": "9.5 GW", "sub": "הספק כולל ב-2035" },
+        { "label": "נדרש עוד", "value": "4 GW",   "sub": "42% מהיעד" }
+      ],
+      "actions": [
+        { "status": "done",     "title": "הרחבת חובת התקנה במבנים",       "pct": 100 },
+        { "status": "progress", "title": "מודלים מתקדמים לתמרוץ",          "pct": 45  },
+        { "status": "progress", "title": "ודאות רגולטורית ארוכת טווח",     "pct": 40  },
+        { "status": "progress", "title": "הרחבת מיפוי פוטנציאל דו-שימוש", "pct": 55  },
+        { "status": "early",    "title": "חיזוק תפקיד השלטון המקומי",      "pct": 15  },
+        { "status": "early",    "title": "הסרת חסמים לגדרות ומחלפים",      "pct": 10  },
+        { "status": "early",    "title": "האצת קירויים סולאריים",           "pct": 15  },
+        { "status": "early",    "title": "כיסוי תשתיות מים וחממות",         "pct": 20  },
+        { "status": "done",     "title": "פישוט רגולציה לגגות קטנים",       "pct": 80  },
+        { "status": "early",    "title": "מנגנוני ייצור בבניינים משותפים", "pct": 20  }
+      ],
+      "milestones": [
+        { "year": 2022, "state": "done",   "label": "פרמיה אורבנית" },
+        { "year": 2024, "state": "done",   "label": "פטור היתר 700kW" },
+        { "year": 2026, "state": "done",   "label": "מאה אלף גגות" },
+        { "year": 2027, "state": "future", "label": "חובת התקנה רחבה" },
+        { "year": 2030, "state": "future", "label": "8 GW דו-שימוש" },
+        { "year": 2035, "state": "future", "label": "יעד 9.5 GW" }
+      ]
+    },
+    {
+      "id": "agrovoltaics",
+      "title": "אגרו-וולטאי",
+      "subtitle": "שילוב ייצור חשמל עם פעילות חקלאית",
+      "icon": "ti-plant",
+      "iconBg": "#EAF3DE",
+      "iconColor": "#3B6D11",
+      "color": "#639922",
+      "type": "gw",
+      "gwCurrent": 0.01,
+      "gwTarget": 5,
+      "detailKpis": [
+        { "label": "מותקן",    "value": "0.01 GW", "sub": "0% מהיעד",          "progress": 0, "color": "#639922" },
+        { "label": "בהקמה",    "value": "0 GW",    "sub": "מצטבר: 0%" },
+        { "label": "יעד 2035", "value": "5 GW",    "sub": "הספק כולל ב-2035" },
+        { "label": "נדרש עוד", "value": "5 GW",    "sub": "100% מהיעד" }
+      ],
+      "actions": [
+        { "status": "done",     "title": "יישום תמ\"א 24/1 לאגרו-וולטאי",  "pct": 100 },
+        { "status": "progress", "title": "עדכון עיתי אסדרה תכנונית",        "pct": 30  },
+        { "status": "progress", "title": "הקלות תכנוניות וקנייניות",         "pct": 40  },
+        { "status": "early",    "title": "יעדי אישור תוכניות למחוזות",       "pct": 20  },
+        { "status": "progress", "title": "הקצאת משאבים ותמיכה במחקר",       "pct": 35  },
+        { "status": "none",     "title": "הקמת מסד ידע לאומי",               "pct": 0   }
+      ],
+      "milestones": [
+        { "year": 2021, "state": "done",   "label": "צוות בין-משרדי" },
+        { "year": 2023, "state": "done",   "label": "תוכנית פיילוטים" },
+        { "year": 2026, "state": "done",   "label": "אישור תמ\"א 24/1" },
+        { "year": 2027, "state": "future", "label": "200 MW מסחרי" },
+        { "year": 2030, "state": "future", "label": "2 GW" },
+        { "year": 2035, "state": "future", "label": "יעד 5 GW" }
+      ]
+    },
+    {
+      "id": "landsystems",
+      "title": "מתקנים קרקעיים",
+      "subtitle": "מתחמים גדולים · אזורי REZ · קרקעות מדינה",
+      "icon": "ti-solar-panel",
+      "iconBg": "#FAEEDA",
+      "iconColor": "#854F0B",
+      "color": "#BA7517",
+      "type": "gw",
+      "gwCurrent": 3.5,
+      "gwTarget": 10.5,
+      "detailKpis": [
+        { "label": "מותקן",    "value": "3.5 GW",  "sub": "33% מהיעד",         "progress": 33, "color": "#BA7517" },
+        { "label": "בהקמה",    "value": "3 GW",    "sub": "מצטבר: 62%" },
+        { "label": "יעד 2035", "value": "10.5 GW", "sub": "הספק כולל ב-2035" },
+        { "label": "נדרש עוד", "value": "4.5 GW",  "sub": "38% מהיעד" }
+      ],
+      "actions": [
+        { "status": "progress", "title": "מיפוי ושיווק אזורי אנרגיה רחבי היקף", "pct": 35 },
+        { "status": "none",     "title": "הכרה במתחמים כתשתיות חיוניות",         "pct": 0  },
+        { "status": "early",    "title": "מנגנון תיאום בין-משרדי לקרקעי",        "pct": 15 },
+        { "status": "progress", "title": "קריטריונים לקרקע פוטנציאל נמוך",       "pct": 40 },
+        { "status": "done",     "title": "הרחבת המכסה התכנונית 2030+",            "pct": 70 },
+        { "status": "progress", "title": "התאמת מסלולי תכנון",                    "pct": 30 },
+        { "status": "none",     "title": "הארכת חכירה ושחלוף פאנלים",            "pct": 0  }
+      ],
+      "milestones": [
+        { "year": 2020, "state": "done",   "label": "מכסה 60K דונם" },
+        { "year": 2024, "state": "done",   "label": "מכרזים 100+ MW" },
+        { "year": 2026, "state": "future", "label": "תכנון אורון-צין" },
+        { "year": 2028, "state": "future", "label": "REZ ראשונים" },
+        { "year": 2032, "state": "future", "label": "8 GW קרקעי" },
+        { "year": 2035, "state": "future", "label": "יעד 10.5 GW" }
+      ]
+    },
+    {
+      "id": "gridnstorage",
+      "title": "רשת ואגירה",
+      "subtitle": "תשתית מאפשרת · רשת חכמה · קיבולת קליטה",
+      "icon": "ti-bolt",
+      "iconBg": "#EEEDFE",
+      "iconColor": "#534AB7",
+      "color": "#7F77DD",
+      "type": "infra",
+      "detailKpis": [
+        { "label": "השקעה ברשת אושרה",    "value": "₪39B",  "sub": "הולכה + חלוקה" },
+        { "label": "אגירה מתוכננת",        "value": "9+ GW", "sub": "יעד 2030" },
+        { "label": "צעדים בביצוע",         "value": "5/11",  "sub": "מתוך 11 צעדים" },
+        { "label": "תשובות מחלק חיוביות", "value": "~60%",  "sub": "יעד: 90%+" }
+      ],
+      "actions": [
+        { "status": "progress", "title": "תיאום קבוע רשת-מתחדשות",              "pct": 40 },
+        { "status": "none",     "title": "מסלול תכנון לאומי לרשת (ות\"ל)",       "pct": 0  },
+        { "status": "none",     "title": "מסלול טרום-תכנוני לתשתיות",             "pct": 5  },
+        { "status": "progress", "title": "רגולציה לרשת גמישה ודינמית",            "pct": 35 },
+        { "status": "progress", "title": "כלים דיגיטליים לרשת חכמה",             "pct": 50 },
+        { "status": "none",     "title": "הסדרת אגרגטורים",                        "pct": 5  },
+        { "status": "none",     "title": "רגולציה למיקרו-גרידים",                  "pct": 0  },
+        { "status": "none",     "title": "חיבור חוות שרתים לאגירה מקומית",        "pct": 0  },
+        { "status": "progress", "title": "אסדרה לאגירה במתח נמוך",                "pct": 45 },
+        { "status": "progress", "title": "התאמת דרישות בטיחות לאגירה",            "pct": 30 },
+        { "status": "none",     "title": "תוכנית לאומית לאגירה",                   "pct": 0  }
+      ],
+      "milestones": [
+        { "year": 2023, "state": "done",   "label": "אישור פר\"ח ₪22B" },
+        { "year": 2024, "state": "done",   "label": "ADMS חב' החשמל" },
+        { "year": 2026, "state": "future", "label": "ות\"ל לרשת" },
+        { "year": 2028, "state": "future", "label": "5 GW אגירה" },
+        { "year": 2030, "state": "future", "label": "9 GW אגירה" },
+        { "year": 2035, "state": "future", "label": "רשת חכמה מלאה" }
+      ]
+    },
+    {
+      "id": "govleadership",
+      "title": "הובלה ממשלתית",
+      "subtitle": "תיאום · יעדים סגמנטליים · דוגמה ממשלתית",
+      "icon": "ti-building-community",
+      "iconBg": "#FAECE7",
+      "iconColor": "#993C1D",
+      "color": "#D85A30",
+      "type": "infra",
+      "detailKpis": [
+        { "label": "יעדים סגמנטליים",    "value": "טרם נקבעו", "sub": "בהחלטת ממשלה" },
+        { "label": "מנגנון בין-משרדי",   "value": "בהקמה",     "sub": "פורום קבוע" },
+        { "label": "מבני ציבור עם סולאר", "value": "~30%",      "sub": "יעד: 80%" },
+        { "label": "GIS לאומי",           "value": "חלקי",      "sub": "בפיתוח" }
+      ],
+      "actions": [
+        { "status": "none",     "title": "יעדים סגמנטליים בהחלטת ממשלה", "pct": 5  },
+        { "status": "progress", "title": "מנגנון תיאום בין-משרדי קבוע",   "pct": 30 },
+        { "status": "progress", "title": "משרד האנרגיה כגורם מתכלל",       "pct": 50 },
+        { "status": "early",    "title": "מערכת GIS ממשלתית אחודה",         "pct": 20 },
+        { "status": "none",     "title": "One-Stop-Shop רגולטורי",           "pct": 0  },
+        { "status": "progress", "title": "התקנה על 80% ממבני ציבור",         "pct": 30 },
+        { "status": "none",     "title": "יעדים לחברות ממשלתיות",            "pct": 5  },
+        { "status": "none",     "title": "מסגרת לפוטנציאל ביטחוני",          "pct": 0  }
+      ],
+      "milestones": [
+        { "year": 2020, "state": "done",   "label": "החלטת ממשלה 465" },
+        { "year": 2025, "state": "done",   "label": "מפת דרכים עדכון" },
+        { "year": 2026, "state": "done",   "label": "תוכנית לאומית" },
+        { "year": 2026, "state": "future", "label": "יעדים סגמנטליים" },
+        { "year": 2027, "state": "future", "label": "GIS + One-Stop" },
+        { "year": 2028, "state": "future", "label": "מנגנון מלא" }
+      ]
+    },
+    {
+      "id": "technologies",
+      "title": "טכנולוגיות נוספות",
+      "subtitle": "גיוון תמהיל · חדשנות · היערכות לטווח ארוך",
+      "icon": "ti-atom",
+      "iconBg": "#FBEAF0",
+      "iconColor": "#993556",
+      "color": "#D4537E",
+      "type": "gw",
+      "gwCurrent": 0.5,
+      "gwTarget": 1,
+      "detailKpis": [
+        { "label": "מותקן",    "value": "0.5 GW",  "sub": "50% מהיעד",         "progress": 50, "color": "#D4537E" },
+        { "label": "בהקמה",    "value": "0.25 GW", "sub": "מצטבר: 75%" },
+        { "label": "יעד 2035", "value": "1 GW",    "sub": "הספק כולל ב-2035" },
+        { "label": "נדרש עוד", "value": "0.5 GW",  "sub": "25% מהיעד" }
+      ],
+      "actions": [
+        { "status": "early",    "title": "עדכון מסגרת רגולטורית לטכנולוגיות",  "pct": 15 },
+        { "status": "none",     "title": "ארגז חול רגולטורי לחדשנות",            "pct": 0  },
+        { "status": "progress", "title": "הרחבת תמיכה תקציבית במו\"פ",           "pct": 40 },
+        { "status": "early",    "title": "מיפוי טכנולוגיות ייחודיות לישראל",    "pct": 20 }
+      ],
+      "milestones": [
+        { "year": 2022, "state": "done",   "label": "תרמו-סולארי אשלים" },
+        { "year": 2025, "state": "done",   "label": "פיילוטים ביומסה" },
+        { "year": 2027, "state": "future", "label": "ארגז חול" },
+        { "year": 2029, "state": "future", "label": "PVT מסחרי" },
+        { "year": 2032, "state": "future", "label": "אנרגיה ימית" },
+        { "year": 2035, "state": "future", "label": "יעד 1 GW" }
+      ]
+    }
+  ]
+}
