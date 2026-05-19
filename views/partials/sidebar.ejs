@@ -1,0 +1,25 @@
+<nav class="sidebar" id="sidebar">
+  <div class="sidebar-brand">
+    <i class="ti ti-solar-panel" style="color:#639922"></i>
+    <span>אנרגיות 2035</span>
+  </div>
+
+  <a href="/" class="sidebar-item<%= activePage === 'dashboard' ? ' active' : '' %>">
+    <div class="sidebar-ico sidebar-ico-home">
+      <i class="ti ti-layout-dashboard"></i>
+    </div>
+    <span>מבט כולל</span>
+  </a>
+
+  <div class="sidebar-sep"></div>
+
+  <% sidebarItems.forEach(item => { %>
+  <a href="/initiative/<%= item.id %>" class="sidebar-item<%= activePage === item.id ? ' active' : '' %>">
+    <div class="sidebar-ico" style="background:<%= item.iconBg %>">
+      <i class="ti <%= item.icon %>" style="color:<%= item.iconColor %>"></i>
+    </div>
+    <span><%- item.title %></span>
+  </a>
+  <% }) %>
+</nav>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>

@@ -24,94 +24,119 @@
   const { counts, breakdown } = initiative;
   const pending = counts.early + counts.none;
 %>
-<div class="db">
 
-  <a href="/" class="back">
-    <i class="ti ti-arrow-right" aria-hidden="true"></i> חזרה למבט כולל
-  </a>
+<button class="sidebar-toggle" id="sidebarToggle" aria-label="פתח תפריט">
+  <i class="ti ti-menu-2"></i>
+</button>
 
-  <div class="dhead">
-    <div class="dico" style="background:<%= initiative.iconBg %>">
-      <i class="ti <%= initiative.icon %>" style="color:<%= initiative.iconColor %>" aria-hidden="true"></i>
-    </div>
-    <div>
-      <div class="dtitle"><%- initiative.title %></div>
-      <div class="dsub"><%- initiative.subtitle %></div>
-    </div>
-  </div>
+<div class="layout">
+  <%- include('partials/sidebar') %>
 
-  <div class="dkgrid">
-    <% initiative.detailKpis.forEach(kpi => { %>
-    <div class="kcard">
-      <div class="klabel"><%- kpi.label %></div>
-      <div class="kval"><%- kpi.value %></div>
-      <div class="ksub"><%- kpi.sub %></div>
-      <% if (kpi.progress != null) { %>
-      <div class="kpbar"><div class="kpfill" style="width:<%= kpi.progress %>%;background:<%= kpi.color %>"></div></div>
-      <% } %>
-    </div>
-    <% }) %>
-  </div>
+  <main class="main-content">
+    <div class="db">
 
-  <div class="two-col">
-    <div>
-      <div class="sec-hdr"><%= counts.done %> הושלמו · <%= counts.progress %> בביצוע · <%= pending %> ממתינים</div>
-      <div class="alist">
-        <% initiative.actions.forEach(action => { %>
-        <% const si = iconMap[action.status]; const sl = labelMap[action.status]; %>
-        <div class="aitem <%= action.status %>">
-          <div class="arow">
-            <div class="adic <%= action.status %>">
-              <i class="ti <%= si.icon %>" style="color:<%= si.color %>" aria-hidden="true"></i>
-            </div>
-            <div class="atitle"><%- action.title %></div>
-            <div class="atag <%= action.status %>"><%= sl %></div>
-          </div>
-          <div class="apbar">
-            <div class="aptrack">
-              <div class="apfill <%= action.status %>" style="width:<%= action.pct %>%"></div>
-            </div>
-            <div class="apval"><%= action.pct %>%</div>
-          </div>
+      <a href="/" class="back">
+        <i class="ti ti-arrow-right" aria-hidden="true"></i> חזרה למבט כולל
+      </a>
+
+      <div class="dhead">
+        <div class="dico" style="background:<%= initiative.iconBg %>">
+          <i class="ti <%= initiative.icon %>" style="color:<%= initiative.iconColor %>" aria-hidden="true"></i>
+        </div>
+        <div>
+          <div class="dtitle"><%- initiative.title %></div>
+          <div class="dsub"><%- initiative.subtitle %></div>
+        </div>
+      </div>
+
+      <div class="dkgrid">
+        <% initiative.detailKpis.forEach(kpi => { %>
+        <div class="kcard">
+          <div class="klabel"><%- kpi.label %></div>
+          <div class="kval"><%- kpi.value %></div>
+          <div class="ksub"><%- kpi.sub %></div>
+          <% if (kpi.progress != null) { %>
+          <div class="kpbar"><div class="kpfill" style="width:<%= kpi.progress %>%;background:<%= kpi.color %>"></div></div>
+          <% } %>
         </div>
         <% }) %>
       </div>
-    </div>
 
-    <div>
-      <div class="sec-hdr">ציר אבני דרך</div>
-      <div class="tl">
-        <div class="tl-line"></div>
-        <div class="tl-items">
-          <% initiative.milestones.forEach(m => { %>
-          <div class="tlitem">
-            <div class="tlyear <%= m.state %>"><%= m.year %></div>
-            <% if (m.state === 'done') { %>
-            <div class="tldot done" style="background:<%= initiative.color %>;border-color:<%= initiative.color %>"></div>
-            <% } else { %>
-            <div class="tldot future"></div>
-            <% } %>
-            <div class="tllabel <%= m.state %>"><%- m.label %></div>
+      <div class="two-col">
+        <div>
+          <div class="sec-hdr"><%= counts.done %> הושלמו · <%= counts.progress %> בביצוע · <%= pending %> ממתינים</div>
+          <div class="alist">
+            <% initiative.actions.forEach(action => { %>
+            <% const si = iconMap[action.status]; const sl = labelMap[action.status]; %>
+            <div class="aitem <%= action.status %>">
+              <div class="arow">
+                <div class="adic <%= action.status %>">
+                  <i class="ti <%= si.icon %>" style="color:<%= si.color %>" aria-hidden="true"></i>
+                </div>
+                <div class="atitle"><%- action.title %></div>
+                <div class="atag <%= action.status %>"><%= sl %></div>
+              </div>
+              <div class="apbar">
+                <div class="aptrack">
+                  <div class="apfill <%= action.status %>" style="width:<%= action.pct %>%"></div>
+                </div>
+                <div class="apval"><%= action.pct %>%</div>
+              </div>
+            </div>
+            <% }) %>
           </div>
-          <% }) %>
+        </div>
+
+        <div>
+          <div class="sec-hdr">ציר אבני דרך</div>
+          <div class="tl">
+            <div class="tl-line"></div>
+            <div class="tl-items">
+              <% initiative.milestones.forEach(m => { %>
+              <div class="tlitem">
+                <div class="tlyear <%= m.state %>"><%= m.year %></div>
+                <% if (m.state === 'done') { %>
+                <div class="tldot done" style="background:<%= initiative.color %>;border-color:<%= initiative.color %>"></div>
+                <% } else { %>
+                <div class="tldot future"></div>
+                <% } %>
+                <div class="tllabel <%= m.state %>"><%- m.label %></div>
+              </div>
+              <% }) %>
+            </div>
+          </div>
+
+          <div class="breakdown">
+            <div class="sec-hdr">פילוח צעדי מדיניות</div>
+            <% breakdown.forEach(b => { %>
+            <div class="sbrow">
+              <div class="sblabel"><%= b.label %></div>
+              <div class="sbtrack">
+                <div class="sbfill <%= b.status %>" style="width:<%= b.pct %>%"></div>
+              </div>
+              <div class="sbval"><%= b.count %></div>
+            </div>
+            <% }) %>
+          </div>
         </div>
       </div>
 
-      <div class="breakdown">
-        <div class="sec-hdr">פילוח צעדי מדיניות</div>
-        <% breakdown.forEach(b => { %>
-        <div class="sbrow">
-          <div class="sblabel"><%= b.label %></div>
-          <div class="sbtrack">
-            <div class="sbfill <%= b.status %>" style="width:<%= b.pct %>%"></div>
-          </div>
-          <div class="sbval"><%= b.count %></div>
-        </div>
-        <% }) %>
-      </div>
     </div>
-  </div>
-
+  </main>
 </div>
+
+<script>
+  const toggle = document.getElementById('sidebarToggle');
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('sidebarOverlay');
+  toggle.addEventListener('click', () => {
+    sidebar.classList.toggle('open');
+    overlay.classList.toggle('open');
+  });
+  overlay.addEventListener('click', () => {
+    sidebar.classList.remove('open');
+    overlay.classList.remove('open');
+  });
+</script>
 </body>
 </html>

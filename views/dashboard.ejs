@@ -8,79 +8,104 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
 </head>
 <body>
-<div class="db">
-  <h2 class="sr-only">לוח מעקב יישום תוכנית אנרגיות מתחדשות 2035 — KPIs ומדדי התקדמות לפי 6 מהלכי-על</h2>
 
-  <div class="kgrid">
-    <% kpis.forEach(kpi => { %>
-    <div class="kcard">
-      <div class="klabel"><%- kpi.label %></div>
-      <div class="kval"><%- kpi.value %></div>
-      <div class="ksub"><%- kpi.sub %></div>
-      <% if (kpi.progress != null) { %>
-      <div class="kpbar"><div class="kpfill" style="width:<%= kpi.progress %>%;background:<%= kpi.color %>"></div></div>
-      <% } %>
-    </div>
-    <% }) %>
-  </div>
+<button class="sidebar-toggle" id="sidebarToggle" aria-label="פתח תפריט">
+  <i class="ti ti-menu-2"></i>
+</button>
 
-  <div class="panel">
-    <div class="sec-hdr">מסלול קיבולת לעמידה ביעד 26 GW ב-2035</div>
+<div class="layout">
+  <%- include('partials/sidebar') %>
 
-    <% capacityTracks.forEach(track => { %>
-    <div class="caprow">
-      <div class="caplabel"><%- track.label %></div>
-      <div class="captrack">
-        <% track.fills.forEach(fill => { %>
-        <div class="capfill" style="left:<%= fill.left %>%;width:<%= fill.width %>%;background:<%= fill.color %>"></div>
-        <% }) %>
-        <div class="captarget" style="left:<%= track.target %>%"></div>
-      </div>
-      <div class="capval"><%- track.capval %></div>
-    </div>
-    <% }) %>
+  <main class="main-content">
+    <div class="db">
+      <h2 class="sr-only">לוח מעקב יישום תוכנית אנרגיות מתחדשות 2035 — KPIs ומדדי התקדמות לפי 6 מהלכי-על</h2>
 
-    <div class="leg">
-      <div class="legitem"><div class="legsq" style="background:#639922"></div>מותקן</div>
-      <div class="legitem"><div class="legsq" style="background:#9FE1CB"></div>בהקמה</div>
-      <div class="legitem"><div class="legsq" style="background:var(--color-background-secondary)"></div>נדרש נוסף</div>
-      <div class="legitem"><div class="leg-target"></div>יעד 2035</div>
-    </div>
-  </div>
-
-  <div class="sec-hdr">6 מהלכי-על — לחץ לפרטים ולמעקב מעמיק</div>
-  <div class="igrid">
-    <% const dotColors = { done: '#639922', progress: '#378ADD', early: '#BA7517', none: 'var(--color-border-tertiary)' }; %>
-    <% initiatives.forEach(init => { %>
-    <a class="icard" href="/initiative/<%= init.id %>">
-      <div class="ihead">
-        <div class="iico" style="background:<%= init.iconBg %>">
-          <i class="ti <%= init.icon %>" style="color:<%= init.iconColor %>" aria-hidden="true"></i>
+      <div class="kgrid">
+        <% kpis.forEach(kpi => { %>
+        <div class="kcard">
+          <div class="klabel"><%- kpi.label %></div>
+          <div class="kval"><%- kpi.value %></div>
+          <div class="ksub"><%- kpi.sub %></div>
+          <% if (kpi.progress != null) { %>
+          <div class="kpbar"><div class="kpfill" style="width:<%= kpi.progress %>%;background:<%= kpi.color %>"></div></div>
+          <% } %>
         </div>
-        <div class="ititle"><%- init.title %></div>
-      </div>
-      <div class="isub"><%- init.subtitle %></div>
-      <% if (init.type === 'gw') { %>
-      <div class="igw"><%- init.gwCurrent %> <span>/ <%- init.gwTarget %> GW</span></div>
-      <% } else { %>
-      <div class="icard-infra">תשתית מאפשרת</div>
-      <% } %>
-      <div class="icard-pbar">
-        <div class="icard-ptrack">
-          <div class="icard-pfill" style="width:<%= init.avgPct %>%;background:<%= init.color %>"></div>
-        </div>
-        <div class="icard-pval"><%= init.avgPct %>%</div>
-      </div>
-      <div class="icard-dots">
-        <% init.actions.forEach(action => { %>
-        <div class="icard-dot" style="background:<%= dotColors[action.status] %>"></div>
         <% }) %>
       </div>
-      <div class="icard-count"><%= init.actions.length %> צעדי מדיניות</div>
-    </a>
-    <% }) %>
-  </div>
 
+      <div class="panel">
+        <div class="sec-hdr">מסלול קיבולת לעמידה ביעד 26 GW ב-2035</div>
+
+        <% capacityTracks.forEach(track => { %>
+        <div class="caprow">
+          <div class="caplabel"><%- track.label %></div>
+          <div class="captrack">
+            <% track.fills.forEach(fill => { %>
+            <div class="capfill" style="left:<%= fill.left %>%;width:<%= fill.width %>%;background:<%= fill.color %>"></div>
+            <% }) %>
+            <div class="captarget" style="left:<%= track.target %>%"></div>
+          </div>
+          <div class="capval"><%- track.capval %></div>
+        </div>
+        <% }) %>
+
+        <div class="leg">
+          <div class="legitem"><div class="legsq" style="background:#639922"></div>מותקן</div>
+          <div class="legitem"><div class="legsq" style="background:#9FE1CB"></div>בהקמה</div>
+          <div class="legitem"><div class="legsq" style="background:var(--color-background-secondary)"></div>נדרש נוסף</div>
+          <div class="legitem"><div class="leg-target"></div>יעד 2035</div>
+        </div>
+      </div>
+
+      <div class="sec-hdr">6 מהלכי-על — לחץ לפרטים ולמעקב מעמיק</div>
+      <div class="igrid">
+        <% const dotColors = { done: '#639922', progress: '#378ADD', early: '#BA7517', none: 'var(--color-border-tertiary)' }; %>
+        <% initiatives.forEach(init => { %>
+        <a class="icard" href="/initiative/<%= init.id %>">
+          <div class="ihead">
+            <div class="iico" style="background:<%= init.iconBg %>">
+              <i class="ti <%= init.icon %>" style="color:<%= init.iconColor %>" aria-hidden="true"></i>
+            </div>
+            <div class="ititle"><%- init.title %></div>
+          </div>
+          <div class="isub"><%- init.subtitle %></div>
+          <% if (init.type === 'gw') { %>
+          <div class="igw"><%- init.gwCurrent %> <span>/ <%- init.gwTarget %> GW</span></div>
+          <% } else { %>
+          <div class="icard-infra">תשתית מאפשרת</div>
+          <% } %>
+          <div class="icard-pbar">
+            <div class="icard-ptrack">
+              <div class="icard-pfill" style="width:<%= init.avgPct %>%;background:<%= init.color %>"></div>
+            </div>
+            <div class="icard-pval"><%= init.avgPct %>%</div>
+          </div>
+          <div class="icard-dots">
+            <% init.actions.forEach(action => { %>
+            <div class="icard-dot" style="background:<%= dotColors[action.status] %>"></div>
+            <% }) %>
+          </div>
+          <div class="icard-count"><%= init.actions.length %> צעדי מדיניות</div>
+        </a>
+        <% }) %>
+      </div>
+
+    </div>
+  </main>
 </div>
+
+<script>
+  const toggle = document.getElementById('sidebarToggle');
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('sidebarOverlay');
+  toggle.addEventListener('click', () => {
+    sidebar.classList.toggle('open');
+    overlay.classList.toggle('open');
+  });
+  overlay.addEventListener('click', () => {
+    sidebar.classList.remove('open');
+    overlay.classList.remove('open');
+  });
+</script>
 </body>
 </html>

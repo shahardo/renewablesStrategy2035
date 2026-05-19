@@ -28,6 +28,11 @@ function computeStats(initiative) {
   return { counts, avgPct, breakdown };
 }
 
+// Minimal initiative data for the sidebar (no heavy action/milestone arrays)
+const sidebarItems = data.initiatives.map(({ id, title, icon, iconBg, iconColor }) =>
+  ({ id, title, icon, iconBg, iconColor })
+);
+
 // ── Pages ─────────────────────────────────────────────────────────────────
 
 app.get('/', (req, res) => {
@@ -36,13 +41,19 @@ app.get('/', (req, res) => {
     kpis: data.dashboard.kpis,
     capacityTracks: data.dashboard.capacityTracks,
     initiatives,
+    sidebarItems,
+    activePage: 'dashboard',
   });
 });
 
 app.get('/initiative/:slug', (req, res) => {
   const base = data.initiatives.find(i => i.id === req.params.slug);
-  if (!base) return res.status(404).render('404');
-  res.render('initiative', { initiative: { ...base, ...computeStats(base) } });
+  if (!base) return res.status(404).render('404', { sidebarItems, activePage: '' });
+  res.render('initiative', {
+    initiative: { ...base, ...computeStats(base) },
+    sidebarItems,
+    activePage: req.params.slug,
+  });
 });
 
 // ── REST API ──────────────────────────────────────────────────────────────
