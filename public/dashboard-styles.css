@@ -801,3 +801,26 @@ a.back {
 
 /* ── Policy breakdown section ────────────────────── */
 .breakdown { margin-top: 16px; }
+
+/* ── Chart section ───────────────────────────────── */
+.chart-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 1.25rem;
+  direction: ltr;
+}
+@media (max-width: 700px) {
+  .chart-grid { grid-template-columns: 1fr; }
+}
+
+.chart-panel {
+  background: var(--color-background-primary);
+  border: 0.5px solid var(--color-border-tertiary);
+  border-radius: var(--border-radius-lg);
+  padding: 1rem 1.25rem;
+  direction: rtl;
+}
+.chart-panel canvas {
+  max-height: 230px;
+}

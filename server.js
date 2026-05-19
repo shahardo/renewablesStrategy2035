@@ -52,6 +52,7 @@ app.get('/', (req, res) => {
     kpis: data.dashboard.kpis,
     capacityTracks: data.dashboard.capacityTracks,
     initiatives,
+    charts: data.charts,
     sidebarItems,
     activePage: 'dashboard',
   });
