@@ -802,6 +802,20 @@ a.back {
 /* ── Policy breakdown section ────────────────────── */
 .breakdown { margin-top: 16px; }
 
+/* ── Capacity panel + detail chart split ─────────── */
+.cap-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 1.25rem;
+  direction: ltr;
+}
+.cap-layout > .panel { margin-bottom: 0; }
+
+@media (max-width: 700px) {
+  .cap-layout { grid-template-columns: 1fr; }
+}
+
 /* ── Chart section ───────────────────────────────── */
 .chart-grid {
   display: grid;

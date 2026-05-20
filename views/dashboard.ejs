@@ -45,27 +45,34 @@
         </div>
       </div>
 
-      <div class="panel">
-        <div class="sec-hdr">מסלול קיבולת לעמידה ביעד 26 GW ב-2035</div>
+      <div class="cap-layout">
+        <div class="panel">
+          <div class="sec-hdr">מסלול קיבולת לעמידה ביעד 26 GW ב-2035</div>
 
-        <% capacityTracks.forEach(track => { %>
-        <div class="caprow">
-          <div class="caplabel"><%- track.label %></div>
-          <div class="captrack">
-            <% track.fills.forEach(fill => { %>
-            <div class="capfill" style="left:<%= fill.left %>%;width:<%= fill.width %>%;background:<%= fill.color %>"></div>
-            <% }) %>
-            <div class="captarget" style="left:<%= track.target %>%"></div>
+          <% capacityTracks.forEach(track => { %>
+          <div class="caprow">
+            <div class="caplabel"><%- track.label %></div>
+            <div class="captrack">
+              <% track.fills.forEach(fill => { %>
+              <div class="capfill" style="left:<%= fill.left %>%;width:<%= fill.width %>%;background:<%= fill.color %>"></div>
+              <% }) %>
+              <div class="captarget" style="left:<%= track.target %>%"></div>
+            </div>
+            <div class="capval"><%- track.capval %></div>
           </div>
-          <div class="capval"><%- track.capval %></div>
-        </div>
-        <% }) %>
+          <% }) %>
 
-        <div class="leg">
-          <div class="legitem"><div class="legsq" style="background:#639922"></div>מותקן</div>
-          <div class="legitem"><div class="legsq" style="background:#9FE1CB"></div>בהקמה</div>
-          <div class="legitem"><div class="legsq" style="background:var(--color-background-secondary)"></div>נדרש נוסף</div>
-          <div class="legitem"><div class="leg-target"></div>יעד 2035</div>
+          <div class="leg">
+            <div class="legitem"><div class="legsq" style="background:#639922"></div>מותקן</div>
+            <div class="legitem"><div class="legsq" style="background:#9FE1CB"></div>בהקמה</div>
+            <div class="legitem"><div class="legsq" style="background:var(--color-background-secondary)"></div>נדרש נוסף</div>
+            <div class="legitem"><div class="leg-target"></div>יעד 2035</div>
+          </div>
+        </div>
+
+        <div class="chart-panel">
+          <div class="sec-hdr">קיבולת מותקנת ומתוכננת לפי סוג ושנה (GW)</div>
+          <canvas id="detailCapacityChart"></canvas>
         </div>
       </div>
 
@@ -252,6 +259,95 @@
         y: {
           ...baseScales.y, stacked: true,
           ticks: { ...baseScales.y.ticks, callback: (v) => v.toFixed(1) + ' GW' },
+        },
+      },
+    },
+  });
+  /* ── Detail capacity chart (2015–2035, 10 bars/year) ── */
+  const YEARS_ALL = Array.from({ length: 21 }, (_, i) => 2015 + i);
+  const BPY  = 10;   // bars per year
+  const HIST = 2025; // last historical year
+  const fa   = ac.futureAnnual;
+
+  // 210-element array: BPY identical values per year, null for irrelevant years
+  function mkBars(annualArr, futureRate, isPastDataset) {
+    return YEARS_ALL.flatMap((year, yi) => {
+      const yearIsPast = year <= HIST;
+      if (isPastDataset !== yearIsPast) return Array(BPY).fill(null);
+      const annual = yearIsPast ? (annualArr[yi] ?? 0) : futureRate;
+      return Array(BPY).fill(annual / BPY);
+    });
+  }
+
+  // Plugin: draw year labels centered under each year's group of BPY bars
+  const yearLabelPlugin = {
+    id: 'yearLabels',
+    afterDraw(chart) {
+      const { ctx, chartArea, scales: { x } } = chart;
+      if (!chartArea) return;
+      ctx.save();
+      ctx.fillStyle  = textColor;
+      ctx.font       = '10px Heebo, Arial, sans-serif';
+      ctx.textAlign  = 'center';
+      ctx.textBaseline = 'top';
+      YEARS_ALL.forEach((year, i) => {
+        const x1 = x.getPixelForValue(i * BPY);
+        const x2 = x.getPixelForValue(i * BPY + BPY - 1);
+        ctx.fillText(String(year), (x1 + x2) / 2, chartArea.bottom + 4);
+      });
+      ctx.restore();
+    },
+  };
+
+  new Chart(document.getElementById('detailCapacityChart'), {
+    type: 'bar',
+    plugins: [yearLabelPlugin],
+    data: {
+      labels: Array.from({ length: YEARS_ALL.length * BPY }, (_, i) => i),
+      datasets: [
+        // Historical — solid (2015–2025)
+        { label: 'דו-שימוש',          data: mkBars(ac.dualuse,      0, true),  backgroundColor: '#378ADD', stack: 's', barPercentage: 1.0, categoryPercentage: 1.0 },
+        { label: 'מתקנים קרקעיים',    data: mkBars(ac.landsystems,  0, true),  backgroundColor: '#BA7517', stack: 's', barPercentage: 1.0, categoryPercentage: 1.0 },
+        { label: 'אגרו-וולטאי',       data: mkBars(ac.agrovoltaics, 0, true),  backgroundColor: '#639922', stack: 's', barPercentage: 1.0, categoryPercentage: 1.0 },
+        { label: 'טכנולוגיות נוספות', data: mkBars(ac.technologies, 0, true),  backgroundColor: '#D4537E', stack: 's', barPercentage: 1.0, categoryPercentage: 1.0 },
+        // Future — light fill + top border (2026–2035)
+        { label: '_f-du', data: mkBars(null, fa.dualuse,      false), backgroundColor: 'rgba(55,138,221,0.18)',  borderColor: '#378ADD', borderWidth: { top:1,right:0,bottom:0,left:0 }, stack: 's', barPercentage: 1.0, categoryPercentage: 1.0 },
+        { label: '_f-ls', data: mkBars(null, fa.landsystems,  false), backgroundColor: 'rgba(186,117,23,0.18)',  borderColor: '#BA7517', borderWidth: { top:1,right:0,bottom:0,left:0 }, stack: 's', barPercentage: 1.0, categoryPercentage: 1.0 },
+        { label: '_f-ag', data: mkBars(null, fa.agrovoltaics, false), backgroundColor: 'rgba(99,153,34,0.18)',   borderColor: '#639922', borderWidth: { top:1,right:0,bottom:0,left:0 }, stack: 's', barPercentage: 1.0, categoryPercentage: 1.0 },
+        { label: '_f-tc', data: mkBars(null, fa.technologies, false), backgroundColor: 'rgba(212,83,126,0.18)',  borderColor: '#D4537E', borderWidth: { top:1,right:0,bottom:0,left:0 }, stack: 's', barPercentage: 1.0, categoryPercentage: 1.0 },
+      ],
+    },
+    options: {
+      responsive: true,
+      aspectRatio: 1.5,
+      animation: false,
+      layout: { padding: { bottom: 18 } },
+      plugins: {
+        legend: {
+          ...baseLegend,
+          labels: { ...baseLegend.labels, filter: (item) => !item.text.startsWith('_') },
+        },
+        tooltip: {
+          rtl: true,
+          filter: (item) => !item.dataset.label.startsWith('_'),
+          callbacks: {
+            title: (items) => String(YEARS_ALL[Math.floor(items[0].dataIndex / BPY)]),
+            label: (c) => ` ${c.dataset.label}: ${(c.parsed.y * BPY).toFixed(2)} GW/שנה`,
+          },
+        },
+      },
+      scales: {
+        x: {
+          stacked: true,
+          ticks:  { display: false },
+          grid:   { display: false },
+          border: { display: false },
+        },
+        y: {
+          stacked: true,
+          beginAtZero: true,
+          grid: { color: gridColor },
+          ticks: { color: textColor, font: { size: 10 }, callback: (v) => v.toFixed(1) + ' GW' },
         },
       },
     },
