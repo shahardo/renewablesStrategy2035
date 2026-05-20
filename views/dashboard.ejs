@@ -71,7 +71,7 @@
         </div>
 
         <div class="chart-panel">
-          <div class="sec-hdr">קיבולת מותקנת ומתוכננת לפי סוג ושנה (GW)</div>
+          <div class="sec-hdr">קיבולת מותקנת מצטברת לפי סוג (GW) — 2015–2035</div>
           <canvas id="detailCapacityChart"></canvas>
         </div>
       </div>
@@ -190,15 +190,14 @@
   const ac = cd.annualCapacity;
   const flatLine = (val) => ac.years.map((_, i) => (i >= currentIdx ? val : null));
 
-  // Plugin: draws rate labels directly on the chart near the right end of each line
   const inlineRateLabels = {
     id: 'inlineRateLabels',
     afterDatasetsDraw(chart) {
       const { ctx, chartArea, scales } = chart;
       if (!chartArea) return;
       const lines = [
-        { value: ac.currentRate,  text: `${ac.currentRate} GW/שנה — קצב נוכחי`,  color: mutedColor,  dy: -5 },
-        { value: ac.requiredRate, text: `${ac.requiredRate} GW/שנה — קצב נדרש`, color: '#D85A30', dy: -5 },
+        { value: ac.currentRate,  text: `${ac.currentRate} GW/שנה — קצב נוכחי`,  color: mutedColor, dy: -5 },
+        { value: ac.requiredRate, text: `${ac.requiredRate} GW/שנה — קצב נדרש`, color: '#D85A30',  dy: -5 },
       ];
       ctx.save();
       ctx.font = 'bold 9.5px Heebo, Arial, sans-serif';
@@ -235,7 +234,7 @@
           borderColor: '#D85A30', borderDash: [5, 4], borderWidth: 1.5,
           pointRadius: 0, fill: false,
         },
-      ]
+      ],
     },
     options: {
       responsive: true,
@@ -243,10 +242,7 @@
       plugins: {
         legend: {
           ...baseLegend,
-          labels: {
-            ...baseLegend.labels,
-            filter: (item) => !item.text.startsWith('_'),
-          },
+          labels: { ...baseLegend.labels, filter: (item) => !item.text.startsWith('_') },
         },
         tooltip: {
           rtl: true,
@@ -263,65 +259,53 @@
       },
     },
   });
-  /* ── Detail capacity chart (2015–2035, 10 bars/year) ── */
-  const YEARS_ALL = Array.from({ length: 21 }, (_, i) => 2015 + i);
-  const BPY  = 10;   // bars per year
-  const HIST = 2025; // last historical year
-  const fa   = ac.futureAnnual;
+  /* ── Stacked bars: cumulative installed capacity 2015–2035 ── */
+  const CUM_YEARS = ac.years;           // 21 years
+  const BPY2      = 5;                  // bars per year → 21 × 5 = 105 bars
+  const HIST_YR   = 2025;
 
-  // 210-element array: BPY identical values per year, null for irrelevant years
-  function mkBars(annualArr, futureRate, isPastDataset) {
-    return YEARS_ALL.flatMap((year, yi) => {
-      const yearIsPast = year <= HIST;
-      if (isPastDataset !== yearIsPast) return Array(BPY).fill(null);
-      const annual = yearIsPast ? (annualArr[yi] ?? 0) : futureRate;
-      return Array(BPY).fill(annual / BPY);
+  function cumInstalled(annual, futureRate) {
+    let sum = 0;
+    return CUM_YEARS.map((_, i) => {
+      sum += (annual[i] != null) ? annual[i] : futureRate;
+      return parseFloat(sum.toFixed(3));
     });
   }
 
-  // Plugin: draw year labels centered under each year's group of BPY bars
-  const yearLabelPlugin = {
-    id: 'yearLabels',
-    afterDraw(chart) {
-      const { ctx, chartArea, scales: { x } } = chart;
-      if (!chartArea) return;
-      ctx.save();
-      ctx.fillStyle  = textColor;
-      ctx.font       = '10px Heebo, Arial, sans-serif';
-      ctx.textAlign  = 'center';
-      ctx.textBaseline = 'top';
-      YEARS_ALL.forEach((year, i) => {
-        const x1 = x.getPixelForValue(i * BPY);
-        const x2 = x.getPixelForValue(i * BPY + BPY - 1);
-        ctx.fillText(String(year), (x1 + x2) / 2, chartArea.bottom + 4);
-      });
-      ctx.restore();
-    },
-  };
+  const cumDU = cumInstalled(ac.dualuse,      ac.futureAnnual.dualuse);
+  const cumLS = cumInstalled(ac.landsystems,  ac.futureAnnual.landsystems);
+  const cumAG = cumInstalled(ac.agrovoltaics, ac.futureAnnual.agrovoltaics);
+  const cumTC = cumInstalled(ac.technologies, ac.futureAnnual.technologies);
+
+  // Expand per-year cumulative value into BPY2 identical bars; null for wrong era
+  function mkCumBars(cumArr, isPast) {
+    return CUM_YEARS.flatMap((year, yi) => {
+      if (isPast !== (year <= HIST_YR)) return Array(BPY2).fill(null);
+      return Array(BPY2).fill(cumArr[yi]);
+    });
+  }
 
   new Chart(document.getElementById('detailCapacityChart'), {
     type: 'bar',
-    plugins: [yearLabelPlugin],
     data: {
-      labels: Array.from({ length: YEARS_ALL.length * BPY }, (_, i) => i),
+      labels: Array.from({ length: CUM_YEARS.length * BPY2 }, (_, i) => i),
       datasets: [
-        // Historical — solid (2015–2025)
-        { label: 'דו-שימוש',          data: mkBars(ac.dualuse,      0, true),  backgroundColor: '#378ADD', stack: 's', barPercentage: 1.0, categoryPercentage: 1.0 },
-        { label: 'מתקנים קרקעיים',    data: mkBars(ac.landsystems,  0, true),  backgroundColor: '#BA7517', stack: 's', barPercentage: 1.0, categoryPercentage: 1.0 },
-        { label: 'אגרו-וולטאי',       data: mkBars(ac.agrovoltaics, 0, true),  backgroundColor: '#639922', stack: 's', barPercentage: 1.0, categoryPercentage: 1.0 },
-        { label: 'טכנולוגיות נוספות', data: mkBars(ac.technologies, 0, true),  backgroundColor: '#D4537E', stack: 's', barPercentage: 1.0, categoryPercentage: 1.0 },
+        // Past — solid (2015–2025)
+        { label: 'דו-שימוש',          data: mkCumBars(cumDU, true), backgroundColor: '#378ADD', stack: 's', barPercentage: 1.0, categoryPercentage: 0.6 },
+        { label: 'מתקנים קרקעיים',    data: mkCumBars(cumLS, true), backgroundColor: '#BA7517', stack: 's', barPercentage: 1.0, categoryPercentage: 0.6 },
+        { label: 'אגרו-וולטאי',       data: mkCumBars(cumAG, true), backgroundColor: '#639922', stack: 's', barPercentage: 1.0, categoryPercentage: 0.6 },
+        { label: 'טכנולוגיות נוספות', data: mkCumBars(cumTC, true), backgroundColor: '#D4537E', stack: 's', barPercentage: 1.0, categoryPercentage: 0.6 },
         // Future — light fill + top border (2026–2035)
-        { label: '_f-du', data: mkBars(null, fa.dualuse,      false), backgroundColor: 'rgba(55,138,221,0.18)',  borderColor: '#378ADD', borderWidth: { top:1,right:0,bottom:0,left:0 }, stack: 's', barPercentage: 1.0, categoryPercentage: 1.0 },
-        { label: '_f-ls', data: mkBars(null, fa.landsystems,  false), backgroundColor: 'rgba(186,117,23,0.18)',  borderColor: '#BA7517', borderWidth: { top:1,right:0,bottom:0,left:0 }, stack: 's', barPercentage: 1.0, categoryPercentage: 1.0 },
-        { label: '_f-ag', data: mkBars(null, fa.agrovoltaics, false), backgroundColor: 'rgba(99,153,34,0.18)',   borderColor: '#639922', borderWidth: { top:1,right:0,bottom:0,left:0 }, stack: 's', barPercentage: 1.0, categoryPercentage: 1.0 },
-        { label: '_f-tc', data: mkBars(null, fa.technologies, false), backgroundColor: 'rgba(212,83,126,0.18)',  borderColor: '#D4537E', borderWidth: { top:1,right:0,bottom:0,left:0 }, stack: 's', barPercentage: 1.0, categoryPercentage: 1.0 },
+        { label: '_f-du', data: mkCumBars(cumDU, false), backgroundColor: 'rgba(55,138,221,0.22)',  borderColor: '#378ADD', borderWidth: { top: 1, right: 0, bottom: 0, left: 0 }, stack: 's', barPercentage: 1.0, categoryPercentage: 0.6 },
+        { label: '_f-ls', data: mkCumBars(cumLS, false), backgroundColor: 'rgba(186,117,23,0.22)',  borderColor: '#BA7517', borderWidth: { top: 1, right: 0, bottom: 0, left: 0 }, stack: 's', barPercentage: 1.0, categoryPercentage: 0.6 },
+        { label: '_f-ag', data: mkCumBars(cumAG, false), backgroundColor: 'rgba(99,153,34,0.22)',   borderColor: '#639922', borderWidth: { top: 1, right: 0, bottom: 0, left: 0 }, stack: 's', barPercentage: 1.0, categoryPercentage: 0.6 },
+        { label: '_f-tc', data: mkCumBars(cumTC, false), backgroundColor: 'rgba(212,83,126,0.22)',  borderColor: '#D4537E', borderWidth: { top: 1, right: 0, bottom: 0, left: 0 }, stack: 's', barPercentage: 1.0, categoryPercentage: 0.6 },
       ],
     },
     options: {
       responsive: true,
-      aspectRatio: 1.5,
+      maintainAspectRatio: true,
       animation: false,
-      layout: { padding: { bottom: 18 } },
       plugins: {
         legend: {
           ...baseLegend,
@@ -331,23 +315,33 @@
           rtl: true,
           filter: (item) => !item.dataset.label.startsWith('_'),
           callbacks: {
-            title: (items) => String(YEARS_ALL[Math.floor(items[0].dataIndex / BPY)]),
-            label: (c) => ` ${c.dataset.label}: ${(c.parsed.y * BPY).toFixed(2)} GW/שנה`,
+            title:  (items) => String(CUM_YEARS[Math.floor(items[0].dataIndex / BPY2)]),
+            label:  (c) => ` ${c.dataset.label}: ${c.parsed.y.toFixed(2)} GW`,
+            footer: (items) => ` סה"כ: ${items.reduce((s, c) => s + c.parsed.y, 0).toFixed(1)} GW`,
           },
         },
       },
       scales: {
         x: {
           stacked: true,
-          ticks:  { display: false },
+          ticks: {
+            color: textColor,
+            font: { size: 10 },
+            maxRotation: 0,
+            autoSkip: false,
+            callback: (_, idx) => idx % (BPY2*2) === Math.floor(BPY2 / 2)
+              ? String(CUM_YEARS[Math.floor(idx / BPY2)])
+              : null,
+          },
           grid:   { display: false },
           border: { display: false },
         },
         y: {
           stacked: true,
           beginAtZero: true,
-          grid: { color: gridColor },
-          ticks: { color: textColor, font: { size: 10 }, callback: (v) => v.toFixed(1) + ' GW' },
+          max: 28,
+          grid:  { color: gridColor },
+          ticks: { color: textColor, font: { size: 10 }, callback: (v) => v.toFixed(0) + ' GW' },
         },
       },
     },
