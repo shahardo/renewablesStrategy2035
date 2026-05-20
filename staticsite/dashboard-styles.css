@@ -1,6 +1,5 @@
 /* ===================================================
    תוכנית אנרגיות מתחדשות 2035 — Standalone Dashboard CSS
-   מחליף את משתני ה-CSS של claude.ai בערכים מוחלטים
    =================================================== */
 
 /* Google Fonts — Heebo (עברית) + DM Sans (ספרות/אנגלית) */
@@ -78,9 +77,213 @@ html, body {
 }
 
 body {
+  padding: 0;
+}
+
+/* ── App layout (sidebar + content) ─────────────── */
+.layout {
+  display: flex;
+  flex-direction: row;
+  direction: rtl;
+  min-height: 100vh;
+}
+
+/* ── Sidebar ─────────────────────────────────────── */
+.sidebar {
+  width: 200px;
+  flex-shrink: 0;
+  background: var(--color-background-secondary);
+  border-left: 0.5px solid var(--color-border-tertiary);
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  padding: 1.25rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 14px 1rem;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--color-text-primary);
+  border-bottom: 0.5px solid var(--color-border-tertiary);
+  margin-bottom: 6px;
+  direction: rtl;
+  white-space: nowrap;
+}
+.sidebar-brand i { font-size: 15px; }
+
+.sidebar-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  padding: 7px 10px;
+  margin: 0 6px;
+  border-radius: 7px;
+  text-decoration: none;
+  color: var(--color-text-secondary);
+  font-size: 12.5px;
+  font-family: var(--font-sans);
+  direction: rtl;
+  transition: background 0.15s, color 0.15s;
+}
+.sidebar-item:hover {
+  background: var(--color-background-tertiary);
+  color: var(--color-text-primary);
+}
+.sidebar-item.active {
+  background: var(--color-background-tertiary);
+  color: var(--color-text-primary);
+  font-weight: 500;
+}
+
+.sidebar-item > span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+  line-height: 1.8;
+}
+
+/* ── Sidebar initiative body (title + progress) ── */
+.sidebar-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.sidebar-title {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.4;
+}
+
+.sidebar-prog {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  direction: ltr;
+}
+
+.sidebar-track {
+  flex: 1;
+  height: 3px;
+  background: var(--color-border-tertiary);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.sidebar-fill {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+.sidebar-stat {
+  font-size: 10px;
+  color: var(--color-text-tertiary);
+  white-space: nowrap;
+  min-width: 24px;
+  text-align: left;
+}
+
+.sidebar-item.active .sidebar-stat,
+.sidebar-item:hover .sidebar-stat {
+  color: var(--color-text-secondary);
+}
+
+.sidebar-ico {
+  width: 22px;
+  height: 22px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.sidebar-ico i { font-size: 13px; }
+
+.sidebar-ico-home {
+  background: var(--color-background-tertiary);
+}
+.sidebar-ico-home i { color: var(--color-text-secondary); }
+
+.sidebar-sep {
+  height: 0.5px;
+  background: var(--color-border-tertiary);
+  margin: 6px 14px;
+  flex-shrink: 0;
+}
+
+/* ── Main content area ───────────────────────────── */
+.main-content {
+  flex: 1;
+  min-width: 0;
   padding: 2rem 1.5rem;
-  max-width: 860px;
-  margin: 0 auto;
+  max-width: 900px;
+  direction: rtl;
+}
+
+/* ── Mobile sidebar toggle ───────────────────────── */
+.sidebar-toggle {
+  display: none;
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  z-index: 300;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  border: 0.5px solid var(--color-border-tertiary);
+  background: var(--color-background-secondary);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  padding: 0;
+}
+
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+  z-index: 199;
+}
+.sidebar-overlay.open { display: block; }
+
+@media (max-width: 700px) {
+  .sidebar-toggle { display: flex; }
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    z-index: 200;
+    transform: translateX(100%);
+    transition: transform 0.22s ease;
+  }
+  .sidebar.open {
+    transform: translateX(0);
+    box-shadow: 4px 0 24px rgba(0,0,0,0.18);
+  }
+
+  .main-content {
+    padding: 1rem 1rem 2rem;
+    padding-top: 3.5rem;
+  }
 }
 
 /* ── Screen-reader helper ────────────────────────── */
@@ -94,13 +297,10 @@ body {
   border: 0;
 }
 
-/* ── Headings (match claude.ai scale) ────────────── */
+/* ── Headings ────────────────────────────────────── */
 h1 { font-size: 22px; font-weight: 500; }
 h2 { font-size: 18px; font-weight: 500; }
 h3 { font-size: 16px; font-weight: 500; }
-
-/* ── Tabler Icons (loaded via CDN in the HTML) ───── */
-/* Icons inherit color and font-size from their parent — nothing extra needed. */
 
 /* ── KPI grid ────────────────────────────────────── */
 .kgrid {
@@ -601,3 +801,40 @@ a.back {
 
 /* ── Policy breakdown section ────────────────────── */
 .breakdown { margin-top: 16px; }
+
+/* ── Capacity panel + detail chart split ─────────── */
+.cap-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 1.25rem;
+  direction: ltr;
+}
+.cap-layout > .panel { margin-bottom: 0; }
+
+@media (max-width: 700px) {
+  .cap-layout { grid-template-columns: 1fr; }
+}
+
+/* ── Chart section ───────────────────────────────── */
+.chart-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 1.25rem;
+  direction: ltr;
+}
+@media (max-width: 700px) {
+  .chart-grid { grid-template-columns: 1fr; }
+}
+
+.chart-panel {
+  background: var(--color-background-primary);
+  border: 0.5px solid var(--color-border-tertiary);
+  border-radius: var(--border-radius-lg);
+  padding: 1rem 1.25rem;
+  direction: rtl;
+}
+.chart-panel canvas {
+  max-height: 230px;
+}

@@ -8,206 +8,464 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
 </head>
 <body>
-<div class="db">
 
-  <a href="dashboard.html" class="back">
-    <i class="ti ti-arrow-right" aria-hidden="true"></i> חזרה למבט כולל
+
+<button class="sidebar-toggle" id="sidebarToggle" aria-label="פתח תפריט">
+  <i class="ti ti-menu-2"></i>
+</button>
+
+<div class="layout">
+  <nav class="sidebar" id="sidebar">
+  <div class="sidebar-brand">
+    <i class="ti ti-solar-panel" style="color:#639922"></i>
+    <span>אנרגיות 2035</span>
+  </div>
+
+  <a href="index.html" class="sidebar-item">
+    <div class="sidebar-ico sidebar-ico-home">
+      <i class="ti ti-layout-dashboard"></i>
+    </div>
+    <span>מבט כולל</span>
   </a>
 
-  <div class="dhead">
-    <div class="dico" style="background:#E6F1FB"><i class="ti ti-building" style="color:#185FA5" aria-hidden="true"></i></div>
-    <div>
-      <div class="dtitle">מיצוי דו-שימוש</div>
-      <div class="dsub">גגות · קירויים · תשתיות מים · שטחים מופרים</div>
+  <div class="sidebar-sep"></div>
+
+  
+  <a href="dualuse.html" class="sidebar-item active">
+    <div class="sidebar-ico" style="background:#E6F1FB">
+      <i class="ti ti-building" style="color:#185FA5"></i>
     </div>
-  </div>
-
-  <div class="dkgrid">
-    <div class="kcard">
-      <div class="klabel">מותקן</div>
-      <div class="kval">4.5 GW</div>
-      <div class="ksub">47% מהיעד</div>
-      <div class="kpbar"><div class="kpfill" style="width:47%;background:#378ADD"></div></div>
-    </div>
-    <div class="kcard">
-      <div class="klabel">בהקמה</div>
-      <div class="kval">1 GW</div>
-      <div class="ksub">מצטבר: 58%</div>
-    </div>
-    <div class="kcard">
-      <div class="klabel">יעד 2035</div>
-      <div class="kval">9.5 GW</div>
-      <div class="ksub">הספק כולל ב-2035</div>
-    </div>
-    <div class="kcard">
-      <div class="klabel">נדרש עוד</div>
-      <div class="kval">4 GW</div>
-      <div class="ksub">42% מהיעד</div>
-    </div>
-  </div>
-
-  <div class="two-col">
-    <div>
-      <div class="sec-hdr">2 הושלמו · 3 בביצוע · 5 ממתינים</div>
-      <div class="alist">
-
-        <div class="aitem done">
-          <div class="arow">
-            <div class="adic done"><i class="ti ti-check" style="color:#3B6D11" aria-hidden="true"></i></div>
-            <div class="atitle">הרחבת חובת התקנה במבנים</div>
-            <div class="atag done">הושלם</div>
-          </div>
-          <div class="apbar"><div class="aptrack"><div class="apfill done" style="width:100%"></div></div><div class="apval">100%</div></div>
+    <div class="sidebar-body">
+      <span class="sidebar-title">מיצוי דו-שימוש</span>
+      <div class="sidebar-prog">
+        <div class="sidebar-track">
+          <div class="sidebar-fill" style="width:40%;background:#378ADD"></div>
         </div>
-
-        <div class="aitem progress">
-          <div class="arow">
-            <div class="adic progress"><i class="ti ti-player-play" style="color:#185FA5" aria-hidden="true"></i></div>
-            <div class="atitle">מודלים מתקדמים לתמרוץ</div>
-            <div class="atag progress">בביצוע</div>
-          </div>
-          <div class="apbar"><div class="aptrack"><div class="apfill progress" style="width:45%"></div></div><div class="apval">45%</div></div>
-        </div>
-
-        <div class="aitem progress">
-          <div class="arow">
-            <div class="adic progress"><i class="ti ti-player-play" style="color:#185FA5" aria-hidden="true"></i></div>
-            <div class="atitle">ודאות רגולטורית ארוכת טווח</div>
-            <div class="atag progress">בביצוע</div>
-          </div>
-          <div class="apbar"><div class="aptrack"><div class="apfill progress" style="width:40%"></div></div><div class="apval">40%</div></div>
-        </div>
-
-        <div class="aitem progress">
-          <div class="arow">
-            <div class="adic progress"><i class="ti ti-player-play" style="color:#185FA5" aria-hidden="true"></i></div>
-            <div class="atitle">הרחבת מיפוי פוטנציאל דו-שימוש</div>
-            <div class="atag progress">בביצוע</div>
-          </div>
-          <div class="apbar"><div class="aptrack"><div class="apfill progress" style="width:55%"></div></div><div class="apval">55%</div></div>
-        </div>
-
-        <div class="aitem early">
-          <div class="arow">
-            <div class="adic early"><i class="ti ti-clock" style="color:#854F0B" aria-hidden="true"></i></div>
-            <div class="atitle">חיזוק תפקיד השלטון המקומי</div>
-            <div class="atag early">בשלבים ראשונים</div>
-          </div>
-          <div class="apbar"><div class="aptrack"><div class="apfill early" style="width:15%"></div></div><div class="apval">15%</div></div>
-        </div>
-
-        <div class="aitem early">
-          <div class="arow">
-            <div class="adic early"><i class="ti ti-clock" style="color:#854F0B" aria-hidden="true"></i></div>
-            <div class="atitle">הסרת חסמים לגדרות ומחלפים</div>
-            <div class="atag early">בשלבים ראשונים</div>
-          </div>
-          <div class="apbar"><div class="aptrack"><div class="apfill early" style="width:10%"></div></div><div class="apval">10%</div></div>
-        </div>
-
-        <div class="aitem early">
-          <div class="arow">
-            <div class="adic early"><i class="ti ti-clock" style="color:#854F0B" aria-hidden="true"></i></div>
-            <div class="atitle">האצת קירויים סולאריים</div>
-            <div class="atag early">בשלבים ראשונים</div>
-          </div>
-          <div class="apbar"><div class="aptrack"><div class="apfill early" style="width:15%"></div></div><div class="apval">15%</div></div>
-        </div>
-
-        <div class="aitem early">
-          <div class="arow">
-            <div class="adic early"><i class="ti ti-clock" style="color:#854F0B" aria-hidden="true"></i></div>
-            <div class="atitle">כיסוי תשתיות מים וחממות</div>
-            <div class="atag early">בשלבים ראשונים</div>
-          </div>
-          <div class="apbar"><div class="aptrack"><div class="apfill early" style="width:20%"></div></div><div class="apval">20%</div></div>
-        </div>
-
-        <div class="aitem done">
-          <div class="arow">
-            <div class="adic done"><i class="ti ti-check" style="color:#3B6D11" aria-hidden="true"></i></div>
-            <div class="atitle">פישוט רגולציה לגגות קטנים</div>
-            <div class="atag done">הושלם</div>
-          </div>
-          <div class="apbar"><div class="aptrack"><div class="apfill done" style="width:80%"></div></div><div class="apval">80%</div></div>
-        </div>
-
-        <div class="aitem early">
-          <div class="arow">
-            <div class="adic early"><i class="ti ti-clock" style="color:#854F0B" aria-hidden="true"></i></div>
-            <div class="atitle">מנגנוני ייצור בבניינים משותפים</div>
-            <div class="atag early">בשלבים ראשונים</div>
-          </div>
-          <div class="apbar"><div class="aptrack"><div class="apfill early" style="width:20%"></div></div><div class="apval">20%</div></div>
-        </div>
-
+        <span class="sidebar-stat">2/10</span>
       </div>
     </div>
+  </a>
+  
+  <a href="agrovoltaics.html" class="sidebar-item">
+    <div class="sidebar-ico" style="background:#EAF3DE">
+      <i class="ti ti-plant" style="color:#3B6D11"></i>
+    </div>
+    <div class="sidebar-body">
+      <span class="sidebar-title">אגרו-וולטאי</span>
+      <div class="sidebar-prog">
+        <div class="sidebar-track">
+          <div class="sidebar-fill" style="width:38%;background:#639922"></div>
+        </div>
+        <span class="sidebar-stat">1/6</span>
+      </div>
+    </div>
+  </a>
+  
+  <a href="landsystems.html" class="sidebar-item">
+    <div class="sidebar-ico" style="background:#FAEEDA">
+      <i class="ti ti-solar-panel" style="color:#854F0B"></i>
+    </div>
+    <div class="sidebar-body">
+      <span class="sidebar-title">מתקנים קרקעיים</span>
+      <div class="sidebar-prog">
+        <div class="sidebar-track">
+          <div class="sidebar-fill" style="width:27%;background:#BA7517"></div>
+        </div>
+        <span class="sidebar-stat">1/7</span>
+      </div>
+    </div>
+  </a>
+  
+  <a href="gridnstorage.html" class="sidebar-item">
+    <div class="sidebar-ico" style="background:#EEEDFE">
+      <i class="ti ti-bolt" style="color:#534AB7"></i>
+    </div>
+    <div class="sidebar-body">
+      <span class="sidebar-title">רשת ואגירה</span>
+      <div class="sidebar-prog">
+        <div class="sidebar-track">
+          <div class="sidebar-fill" style="width:19%;background:#7F77DD"></div>
+        </div>
+        <span class="sidebar-stat">0/11</span>
+      </div>
+    </div>
+  </a>
+  
+  <a href="govleadership.html" class="sidebar-item">
+    <div class="sidebar-ico" style="background:#FAECE7">
+      <i class="ti ti-building-community" style="color:#993C1D"></i>
+    </div>
+    <div class="sidebar-body">
+      <span class="sidebar-title">הובלה ממשלתית</span>
+      <div class="sidebar-prog">
+        <div class="sidebar-track">
+          <div class="sidebar-fill" style="width:18%;background:#D85A30"></div>
+        </div>
+        <span class="sidebar-stat">0/8</span>
+      </div>
+    </div>
+  </a>
+  
+  <a href="technologies.html" class="sidebar-item">
+    <div class="sidebar-ico" style="background:#FBEAF0">
+      <i class="ti ti-atom" style="color:#993556"></i>
+    </div>
+    <div class="sidebar-body">
+      <span class="sidebar-title">טכנולוגיות נוספות</span>
+      <div class="sidebar-prog">
+        <div class="sidebar-track">
+          <div class="sidebar-fill" style="width:19%;background:#D4537E"></div>
+        </div>
+        <span class="sidebar-stat">0/4</span>
+      </div>
+    </div>
+  </a>
+  
+</nav>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-    <div>
-      <div class="sec-hdr">ציר אבני דרך</div>
-      <div class="tl">
-        <div class="tl-line"></div>
-        <div class="tl-items">
-          <div class="tlitem">
-            <div class="tlyear done">2022</div>
-            <div class="tldot done" style="background:#378ADD;border-color:#378ADD"></div>
-            <div class="tllabel done">פרמיה אורבנית</div>
-          </div>
-          <div class="tlitem">
-            <div class="tlyear done">2024</div>
-            <div class="tldot done" style="background:#378ADD;border-color:#378ADD"></div>
-            <div class="tllabel done">פטור היתר 700kW</div>
-          </div>
-          <div class="tlitem">
-            <div class="tlyear done">2026</div>
-            <div class="tldot done" style="background:#378ADD;border-color:#378ADD"></div>
-            <div class="tllabel done">מאה אלף גגות</div>
-          </div>
-          <div class="tlitem">
-            <div class="tlyear future">2027</div>
-            <div class="tldot future"></div>
-            <div class="tllabel future">חובת התקנה רחבה</div>
-          </div>
-          <div class="tlitem">
-            <div class="tlyear future">2030</div>
-            <div class="tldot future"></div>
-            <div class="tllabel future">8 GW דו-שימוש</div>
-          </div>
-          <div class="tlitem">
-            <div class="tlyear future">2035</div>
-            <div class="tldot future"></div>
-            <div class="tllabel future">יעד 9.5 GW</div>
-          </div>
+
+  <main class="main-content">
+    <div class="db">
+
+      <a href="index.html" class="back">
+        <i class="ti ti-arrow-right" aria-hidden="true"></i> חזרה למבט כולל
+      </a>
+
+      <div class="dhead">
+        <div class="dico" style="background:#E6F1FB">
+          <i class="ti ti-building" style="color:#185FA5" aria-hidden="true"></i>
+        </div>
+        <div>
+          <div class="dtitle">מיצוי דו-שימוש</div>
+          <div class="dsub">גגות · קירויים · תשתיות מים · שטחים מופרים</div>
         </div>
       </div>
 
-      <div class="breakdown">
-        <div class="sec-hdr">פילוח צעדי מדיניות</div>
-        <div class="sbrow">
-          <div class="sblabel">הושלם</div>
-          <div class="sbtrack"><div class="sbfill done" style="width:20%"></div></div>
-          <div class="sbval">2</div>
+      <div class="dkgrid">
+        
+        <div class="kcard">
+          <div class="klabel">מותקן</div>
+          <div class="kval">4.5 GW</div>
+          <div class="ksub">47% מהיעד</div>
+          
+          <div class="kpbar"><div class="kpfill" style="width:47%;background:#378ADD"></div></div>
+          
         </div>
-        <div class="sbrow">
-          <div class="sblabel">בביצוע</div>
-          <div class="sbtrack"><div class="sbfill progress" style="width:30%"></div></div>
-          <div class="sbval">3</div>
+        
+        <div class="kcard">
+          <div class="klabel">בהקמה</div>
+          <div class="kval">1 GW</div>
+          <div class="ksub">מצטבר: 58%</div>
+          
         </div>
-        <div class="sbrow">
-          <div class="sblabel">בשלבים ראשונים</div>
-          <div class="sbtrack"><div class="sbfill early" style="width:50%"></div></div>
-          <div class="sbval">5</div>
+        
+        <div class="kcard">
+          <div class="klabel">יעד 2035</div>
+          <div class="kval">9.5 GW</div>
+          <div class="ksub">הספק כולל ב-2035</div>
+          
         </div>
-        <div class="sbrow">
-          <div class="sblabel">טרם החל</div>
-          <div class="sbtrack"><div class="sbfill none" style="width:0%"></div></div>
-          <div class="sbval">0</div>
+        
+        <div class="kcard">
+          <div class="klabel">נדרש עוד</div>
+          <div class="kval">4 GW</div>
+          <div class="ksub">42% מהיעד</div>
+          
+        </div>
+        
+      </div>
+
+      <div class="two-col">
+        <div>
+          <div class="sec-hdr">2 הושלמו · 3 בביצוע · 5 ממתינים</div>
+          <div class="alist">
+            
+            
+            <div class="aitem done">
+              <div class="arow">
+                <div class="adic done">
+                  <i class="ti ti-check" style="color:#3B6D11" aria-hidden="true"></i>
+                </div>
+                <div class="atitle">הרחבת חובת התקנה במבנים</div>
+                <div class="atag done">הושלם</div>
+              </div>
+              <div class="apbar">
+                <div class="aptrack">
+                  <div class="apfill done" style="width:100%"></div>
+                </div>
+                <div class="apval">100%</div>
+              </div>
+            </div>
+            
+            
+            <div class="aitem progress">
+              <div class="arow">
+                <div class="adic progress">
+                  <i class="ti ti-player-play" style="color:#185FA5" aria-hidden="true"></i>
+                </div>
+                <div class="atitle">מודלים מתקדמים לתמרוץ</div>
+                <div class="atag progress">בביצוע</div>
+              </div>
+              <div class="apbar">
+                <div class="aptrack">
+                  <div class="apfill progress" style="width:45%"></div>
+                </div>
+                <div class="apval">45%</div>
+              </div>
+            </div>
+            
+            
+            <div class="aitem progress">
+              <div class="arow">
+                <div class="adic progress">
+                  <i class="ti ti-player-play" style="color:#185FA5" aria-hidden="true"></i>
+                </div>
+                <div class="atitle">ודאות רגולטורית ארוכת טווח</div>
+                <div class="atag progress">בביצוע</div>
+              </div>
+              <div class="apbar">
+                <div class="aptrack">
+                  <div class="apfill progress" style="width:40%"></div>
+                </div>
+                <div class="apval">40%</div>
+              </div>
+            </div>
+            
+            
+            <div class="aitem progress">
+              <div class="arow">
+                <div class="adic progress">
+                  <i class="ti ti-player-play" style="color:#185FA5" aria-hidden="true"></i>
+                </div>
+                <div class="atitle">הרחבת מיפוי פוטנציאל דו-שימוש</div>
+                <div class="atag progress">בביצוע</div>
+              </div>
+              <div class="apbar">
+                <div class="aptrack">
+                  <div class="apfill progress" style="width:55%"></div>
+                </div>
+                <div class="apval">55%</div>
+              </div>
+            </div>
+            
+            
+            <div class="aitem early">
+              <div class="arow">
+                <div class="adic early">
+                  <i class="ti ti-clock" style="color:#854F0B" aria-hidden="true"></i>
+                </div>
+                <div class="atitle">חיזוק תפקיד השלטון המקומי</div>
+                <div class="atag early">בשלבים ראשונים</div>
+              </div>
+              <div class="apbar">
+                <div class="aptrack">
+                  <div class="apfill early" style="width:15%"></div>
+                </div>
+                <div class="apval">15%</div>
+              </div>
+            </div>
+            
+            
+            <div class="aitem early">
+              <div class="arow">
+                <div class="adic early">
+                  <i class="ti ti-clock" style="color:#854F0B" aria-hidden="true"></i>
+                </div>
+                <div class="atitle">הסרת חסמים לגדרות ומחלפים</div>
+                <div class="atag early">בשלבים ראשונים</div>
+              </div>
+              <div class="apbar">
+                <div class="aptrack">
+                  <div class="apfill early" style="width:10%"></div>
+                </div>
+                <div class="apval">10%</div>
+              </div>
+            </div>
+            
+            
+            <div class="aitem early">
+              <div class="arow">
+                <div class="adic early">
+                  <i class="ti ti-clock" style="color:#854F0B" aria-hidden="true"></i>
+                </div>
+                <div class="atitle">האצת קירויים סולאריים</div>
+                <div class="atag early">בשלבים ראשונים</div>
+              </div>
+              <div class="apbar">
+                <div class="aptrack">
+                  <div class="apfill early" style="width:15%"></div>
+                </div>
+                <div class="apval">15%</div>
+              </div>
+            </div>
+            
+            
+            <div class="aitem early">
+              <div class="arow">
+                <div class="adic early">
+                  <i class="ti ti-clock" style="color:#854F0B" aria-hidden="true"></i>
+                </div>
+                <div class="atitle">כיסוי תשתיות מים וחממות</div>
+                <div class="atag early">בשלבים ראשונים</div>
+              </div>
+              <div class="apbar">
+                <div class="aptrack">
+                  <div class="apfill early" style="width:20%"></div>
+                </div>
+                <div class="apval">20%</div>
+              </div>
+            </div>
+            
+            
+            <div class="aitem done">
+              <div class="arow">
+                <div class="adic done">
+                  <i class="ti ti-check" style="color:#3B6D11" aria-hidden="true"></i>
+                </div>
+                <div class="atitle">פישוט רגולציה לגגות קטנים</div>
+                <div class="atag done">הושלם</div>
+              </div>
+              <div class="apbar">
+                <div class="aptrack">
+                  <div class="apfill done" style="width:80%"></div>
+                </div>
+                <div class="apval">80%</div>
+              </div>
+            </div>
+            
+            
+            <div class="aitem early">
+              <div class="arow">
+                <div class="adic early">
+                  <i class="ti ti-clock" style="color:#854F0B" aria-hidden="true"></i>
+                </div>
+                <div class="atitle">מנגנוני ייצור בבניינים משותפים</div>
+                <div class="atag early">בשלבים ראשונים</div>
+              </div>
+              <div class="apbar">
+                <div class="aptrack">
+                  <div class="apfill early" style="width:20%"></div>
+                </div>
+                <div class="apval">20%</div>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+
+        <div>
+          <div class="sec-hdr">ציר אבני דרך</div>
+          <div class="tl">
+            <div class="tl-line"></div>
+            <div class="tl-items">
+              
+              <div class="tlitem">
+                <div class="tlyear done">2022</div>
+                
+                <div class="tldot done" style="background:#378ADD;border-color:#378ADD"></div>
+                
+                <div class="tllabel done">פרמיה אורבנית</div>
+              </div>
+              
+              <div class="tlitem">
+                <div class="tlyear done">2024</div>
+                
+                <div class="tldot done" style="background:#378ADD;border-color:#378ADD"></div>
+                
+                <div class="tllabel done">פטור היתר 700kW</div>
+              </div>
+              
+              <div class="tlitem">
+                <div class="tlyear done">2026</div>
+                
+                <div class="tldot done" style="background:#378ADD;border-color:#378ADD"></div>
+                
+                <div class="tllabel done">מאה אלף גגות</div>
+              </div>
+              
+              <div class="tlitem">
+                <div class="tlyear future">2027</div>
+                
+                <div class="tldot future"></div>
+                
+                <div class="tllabel future">חובת התקנה רחבה</div>
+              </div>
+              
+              <div class="tlitem">
+                <div class="tlyear future">2030</div>
+                
+                <div class="tldot future"></div>
+                
+                <div class="tllabel future">8 GW דו-שימוש</div>
+              </div>
+              
+              <div class="tlitem">
+                <div class="tlyear future">2035</div>
+                
+                <div class="tldot future"></div>
+                
+                <div class="tllabel future">יעד 9.5 GW</div>
+              </div>
+              
+            </div>
+          </div>
+
+          <div class="breakdown">
+            <div class="sec-hdr">פילוח צעדי מדיניות</div>
+            
+            <div class="sbrow">
+              <div class="sblabel">הושלם</div>
+              <div class="sbtrack">
+                <div class="sbfill done" style="width:20%"></div>
+              </div>
+              <div class="sbval">2</div>
+            </div>
+            
+            <div class="sbrow">
+              <div class="sblabel">בביצוע</div>
+              <div class="sbtrack">
+                <div class="sbfill progress" style="width:30%"></div>
+              </div>
+              <div class="sbval">3</div>
+            </div>
+            
+            <div class="sbrow">
+              <div class="sblabel">בשלבים ראשונים</div>
+              <div class="sbtrack">
+                <div class="sbfill early" style="width:50%"></div>
+              </div>
+              <div class="sbval">5</div>
+            </div>
+            
+            <div class="sbrow">
+              <div class="sblabel">טרם החל</div>
+              <div class="sbtrack">
+                <div class="sbfill none" style="width:0%"></div>
+              </div>
+              <div class="sbval">0</div>
+            </div>
+            
+          </div>
         </div>
       </div>
-    </div>
-  </div>
 
+    </div>
+  </main>
 </div>
+
+<script>
+  const toggle = document.getElementById('sidebarToggle');
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('sidebarOverlay');
+  toggle.addEventListener('click', () => {
+    sidebar.classList.toggle('open');
+    overlay.classList.toggle('open');
+  });
+  overlay.addEventListener('click', () => {
+    sidebar.classList.remove('open');
+    overlay.classList.remove('open');
+  });
+</script>
 </body>
 </html>

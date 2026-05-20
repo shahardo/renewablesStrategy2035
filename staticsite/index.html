@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>לוח מעקב — אנרגיות מתחדשות 2035</title>
+  <link rel="stylesheet" href="dashboard-styles.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+<button class="sidebar-toggle" id="sidebarToggle" aria-label="פתח תפריט">
+  <i class="ti ti-menu-2"></i>
+</button>
+
+<div class="layout">
+  <nav class="sidebar" id="sidebar">
+  <div class="sidebar-brand">
+    <i class="ti ti-solar-panel" style="color:#639922"></i>
+    <span>אנרגיות 2035</span>
+  </div>
+
+  <a href="index.html" class="sidebar-item active">
+    <div class="sidebar-ico sidebar-ico-home">
+      <i class="ti ti-layout-dashboard"></i>
+    </div>
+    <span>מבט כולל</span>
+  </a>
+
+  <div class="sidebar-sep"></div>
+
+  
+  <a href="dualuse.html" class="sidebar-item">
+    <div class="sidebar-ico" style="background:#E6F1FB">
+      <i class="ti ti-building" style="color:#185FA5"></i>
+    </div>
+    <div class="sidebar-body">
+      <span class="sidebar-title">מיצוי דו-שימוש</span>
+      <div class="sidebar-prog">
+        <div class="sidebar-track">
+          <div class="sidebar-fill" style="width:40%;background:#378ADD"></div>
+        </div>
+        <span class="sidebar-stat">2/10</span>
+      </div>
+    </div>
+  </a>
+  
+  <a href="agrovoltaics.html" class="sidebar-item">
+    <div class="sidebar-ico" style="background:#EAF3DE">
+      <i class="ti ti-plant" style="color:#3B6D11"></i>
+    </div>
+    <div class="sidebar-body">
+      <span class="sidebar-title">אגרו-וולטאי</span>
+      <div class="sidebar-prog">
+        <div class="sidebar-track">
+          <div class="sidebar-fill" style="width:38%;background:#639922"></div>
+        </div>
+        <span class="sidebar-stat">1/6</span>
+      </div>
+    </div>
+  </a>
+  
+  <a href="landsystems.html" class="sidebar-item">
+    <div class="sidebar-ico" style="background:#FAEEDA">
+      <i class="ti ti-solar-panel" style="color:#854F0B"></i>
+    </div>
+    <div class="sidebar-body">
+      <span class="sidebar-title">מתקנים קרקעיים</span>
+      <div class="sidebar-prog">
+        <div class="sidebar-track">
+          <div class="sidebar-fill" style="width:27%;background:#BA7517"></div>
+        </div>
+        <span class="sidebar-stat">1/7</span>
+      </div>
+    </div>
+  </a>
+  
+  <a href="gridnstorage.html" class="sidebar-item">
+    <div class="sidebar-ico" style="background:#EEEDFE">
+      <i class="ti ti-bolt" style="color:#534AB7"></i>
+    </div>
+    <div class="sidebar-body">
+      <span class="sidebar-title">רשת ואגירה</span>
+      <div class="sidebar-prog">
+        <div class="sidebar-track">
+          <div class="sidebar-fill" style="width:19%;background:#7F77DD"></div>
+        </div>
+        <span class="sidebar-stat">0/11</span>
+      </div>
+    </div>
+  </a>
+  
+  <a href="govleadership.html" class="sidebar-item">
+    <div class="sidebar-ico" style="background:#FAECE7">
+      <i class="ti ti-building-community" style="color:#993C1D"></i>
+    </div>
+    <div class="sidebar-body">
+      <span class="sidebar-title">הובלה ממשלתית</span>
+      <div class="sidebar-prog">
+        <div class="sidebar-track">
+          <div class="sidebar-fill" style="width:18%;background:#D85A30"></div>
+        </div>
+        <span class="sidebar-stat">0/8</span>
+      </div>
+    </div>
+  </a>
+  
+  <a href="technologies.html" class="sidebar-item">
+    <div class="sidebar-ico" style="background:#FBEAF0">
+      <i class="ti ti-atom" style="color:#993556"></i>
+    </div>
+    <div class="sidebar-body">
+      <span class="sidebar-title">טכנולוגיות נוספות</span>
+      <div class="sidebar-prog">
+        <div class="sidebar-track">
+          <div class="sidebar-fill" style="width:19%;background:#D4537E"></div>
+        </div>
+        <span class="sidebar-stat">0/4</span>
+      </div>
+    </div>
+  </a>
+  
+</nav>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+
+  <main class="main-content">
+    <div class="db">
+      <h2 class="sr-only">לוח מעקב יישום תוכנית אנרגיות מתחדשות 2035 — KPIs ומדדי התקדמות לפי 6 מהלכי-על</h2>
+
+      <div class="kgrid">
+        
+        <div class="kcard">
+          <div class="klabel">הספק מותקן</div>
+          <div class="kval">8 GW</div>
+          <div class="ksub">מתוך יעד 26 GW</div>
+          
+          <div class="kpbar"><div class="kpfill" style="width:31%;background:#639922"></div></div>
+          
+        </div>
+        
+        <div class="kcard">
+          <div class="klabel">בשלבי הקמה</div>
+          <div class="kval">4 GW</div>
+          <div class="ksub">46% כולל הקמה</div>
+          
+        </div>
+        
+        <div class="kcard">
+          <div class="klabel">נתח מתחדשות</div>
+          <div class="kval">16%</div>
+          <div class="ksub">יעד 35–40% ב-2035</div>
+          
+          <div class="kpbar"><div class="kpfill" style="width:40%;background:#BA7517"></div></div>
+          
+        </div>
+        
+        <div class="kcard">
+          <div class="klabel">קצב התקנה</div>
+          <div class="kval">1 GW/שנה</div>
+          <div class="ksub">יעד 1.8 GW/שנה</div>
+          
+          <div class="kpbar"><div class="kpfill" style="width:56%;background:#D85A30"></div></div>
+          
+        </div>
+        
+        <div class="kcard">
+          <div class="klabel">צעדי מדיניות</div>
+          <div class="kval">8/46</div>
+          <div class="ksub">הושלמו מתוך 46 צעדים</div>
+          
+          <div class="kpbar"><div class="kpfill" style="width:17%;background:#7F77DD"></div></div>
+          
+        </div>
+        
+      </div>
+
+      <div class="chart-grid">
+        <div class="chart-panel">
+          <div class="sec-hdr">מפת הדרכים: עבר ← הווה ← עתיד (2015–2035)</div>
+          <canvas id="trajectoryChart"></canvas>
+        </div>
+        <div class="chart-panel">
+          <div class="sec-hdr">קיבולת שנתית מותקנת לפי סוג (GW)</div>
+          <canvas id="capacityChart"></canvas>
+        </div>
+      </div>
+
+      <div class="cap-layout">
+        <div class="panel">
+          <div class="sec-hdr">מסלול קיבולת לעמידה ביעד 26 GW ב-2035</div>
+
+          
+          <div class="caprow">
+            <div class="caplabel">קרקעי</div>
+            <div class="captrack">
+              
+              <div class="capfill" style="left:0%;width:29%;background:#BA7517"></div>
+              
+              <div class="capfill" style="left:29%;width:25%;background:#FAC775"></div>
+              
+              <div class="captarget" style="left:88%"></div>
+            </div>
+            <div class="capval">3.5 / 10.5 GW</div>
+          </div>
+          
+          <div class="caprow">
+            <div class="caplabel">דו-שימוש</div>
+            <div class="captrack">
+              
+              <div class="capfill" style="left:0%;width:38%;background:#378ADD"></div>
+              
+              <div class="capfill" style="left:38%;width:8%;background:#B5D4F4"></div>
+              
+              <div class="captarget" style="left:79%"></div>
+            </div>
+            <div class="capval">4.5 / 9.5 GW</div>
+          </div>
+          
+          <div class="caprow">
+            <div class="caplabel">אגרו-וולטאי</div>
+            <div class="captrack">
+              
+              <div class="captarget" style="left:42%"></div>
+            </div>
+            <div class="capval">0.01 / 5 GW</div>
+          </div>
+          
+          <div class="caprow">
+            <div class="caplabel">טכנולוגיות</div>
+            <div class="captrack">
+              
+              <div class="capfill" style="left:0%;width:4%;background:#D4537E"></div>
+              
+              <div class="capfill" style="left:4%;width:2%;background:#F4C0D1"></div>
+              
+              <div class="captarget" style="left:8%"></div>
+            </div>
+            <div class="capval">0.5 / 1 GW</div>
+          </div>
+          
+
+          <div class="leg">
+            <div class="legitem"><div class="legsq" style="background:#639922"></div>מותקן</div>
+            <div class="legitem"><div class="legsq" style="background:#9FE1CB"></div>בהקמה</div>
+            <div class="legitem"><div class="legsq" style="background:var(--color-background-secondary)"></div>נדרש נוסף</div>
+            <div class="legitem"><div class="leg-target"></div>יעד 2035</div>
+          </div>
+        </div>
+
+        <div class="chart-panel">
+          <div class="sec-hdr">קיבולת מותקנת מצטברת לפי סוג (GW) — 2015–2035</div>
+          <canvas id="detailCapacityChart"></canvas>
+        </div>
+      </div>
+
+      <div class="sec-hdr">6 מהלכי-על — לחץ לפרטים ולמעקב מעמיק</div>
+      <div class="igrid">
+        
+        
+        <a class="icard" href="dualuse.html">
+          <div class="ihead">
+            <div class="iico" style="background:#E6F1FB">
+              <i class="ti ti-building" style="color:#185FA5" aria-hidden="true"></i>
+            </div>
+            <div class="ititle">מיצוי דו-שימוש</div>
+          </div>
+          <div class="isub">גגות · קירויים · תשתיות מים · שטחים מופרים</div>
+          
+          <div class="igw">4.5 <span>/ 9.5 GW</span></div>
+          
+          <div class="icard-pbar">
+            <div class="icard-ptrack">
+              <div class="icard-pfill" style="width:40%;background:#378ADD"></div>
+            </div>
+            <div class="icard-pval">40%</div>
+          </div>
+          <div class="icard-dots">
+            
+            <div class="icard-dot" style="background:#639922"></div>
+            
+            <div class="icard-dot" style="background:#378ADD"></div>
+            
+            <div class="icard-dot" style="background:#378ADD"></div>
+            
+            <div class="icard-dot" style="background:#378ADD"></div>
+            
+            <div class="icard-dot" style="background:#BA7517"></div>
+            
+            <div class="icard-dot" style="background:#BA7517"></div>
+            
+            <div class="icard-dot" style="background:#BA7517"></div>
+            
+            <div class="icard-dot" style="background:#BA7517"></div>
+            
+            <div class="icard-dot" style="background:#639922"></div>
+            
+            <div class="icard-dot" style="background:#BA7517"></div>
+            
+          </div>
+          <div class="icard-count">10 צעדי מדיניות</div>
+        </a>
+        
+        <a class="icard" href="agrovoltaics.html">
+          <div class="ihead">
+            <div class="iico" style="background:#EAF3DE">
+              <i class="ti ti-plant" style="color:#3B6D11" aria-hidden="true"></i>
+            </div>
+            <div class="ititle">אגרו-וולטאי</div>
+          </div>
+          <div class="isub">שילוב ייצור חשמל עם פעילות חקלאית</div>
+          
+          <div class="igw">0.01 <span>/ 5 GW</span></div>
+          
+          <div class="icard-pbar">
+            <div class="icard-ptrack">
+              <div class="icard-pfill" style="width:38%;background:#639922"></div>
+            </div>
+            <div class="icard-pval">38%</div>
+          </div>
+          <div class="icard-dots">
+            
+            <div class="icard-dot" style="background:#639922"></div>
+            
+            <div class="icard-dot" style="background:#378ADD"></div>
+            
+            <div class="icard-dot" style="background:#378ADD"></div>
+            
+            <div class="icard-dot" style="background:#BA7517"></div>
+            
+            <div class="icard-dot" style="background:#378ADD"></div>
+            
+            <div class="icard-dot" style="background:var(--color-border-tertiary)"></div>
+            
+          </div>
+          <div class="icard-count">6 צעדי מדיניות</div>
+        </a>
+        
+        <a class="icard" href="landsystems.html">
+          <div class="ihead">
+            <div class="iico" style="background:#FAEEDA">
+              <i class="ti ti-solar-panel" style="color:#854F0B" aria-hidden="true"></i>
+            </div>
+            <div class="ititle">מתקנים קרקעיים</div>
+          </div>
+          <div class="isub">מתחמים גדולים · אזורי REZ · קרקעות מדינה</div>
+          
+          <div class="igw">3.5 <span>/ 10.5 GW</span></div>
+          
+          <div class="icard-pbar">
+            <div class="icard-ptrack">
+              <div class="icard-pfill" style="width:27%;background:#BA7517"></div>
+            </div>
+            <div class="icard-pval">27%</div>
+          </div>
+          <div class="icard-dots">
+            
+            <div class="icard-dot" style="background:#378ADD"></div>
+            
+            <div class="icard-dot" style="background:var(--color-border-tertiary)"></div>
+            
+            <div class="icard-dot" style="background:#BA7517"></div>
+            
+            <div class="icard-dot" style="background:#378ADD"></div>
+            
+            <div class="icard-dot" style="background:#639922"></div>
+            
+            <div class="icard-dot" style="background:#378ADD"></div>
+            
+            <div class="icard-dot" style="background:var(--color-border-tertiary)"></div>
+            
+          </div>
+          <div class="icard-count">7 צעדי מדיניות</div>
+        </a>
+        
+        <a class="icard" href="gridnstorage.html">
+          <div class="ihead">
+            <div class="iico" style="background:#EEEDFE">
+              <i class="ti ti-bolt" style="color:#534AB7" aria-hidden="true"></i>
+            </div>
+            <div class="ititle">רשת ואגירה</div>
+          </div>
+          <div class="isub">תשתית מאפשרת · רשת חכמה · קיבולת קליטה</div>
+          
+          <div class="icard-infra">תשתית מאפשרת</div>
+          
+          <div class="icard-pbar">
+            <div class="icard-ptrack">
+              <div class="icard-pfill" style="width:19%;background:#7F77DD"></div>
+            </div>
+            <div class="icard-pval">19%</div>
+          </div>
+          <div class="icard-dots">
+            
+            <div class="icard-dot" style="background:#378ADD"></div>
+            
+            <div class="icard-dot" style="background:var(--color-border-tertiary)"></div>
+            
+            <div class="icard-dot" style="background:var(--color-border-tertiary)"></div>
+            
+            <div class="icard-dot" style="background:#378ADD"></div>
+            
+            <div class="icard-dot" style="background:#378ADD"></div>
+            
+            <div class="icard-dot" style="background:var(--color-border-tertiary)"></div>
+            
+            <div class="icard-dot" style="background:var(--color-border-tertiary)"></div>
+            
+            <div class="icard-dot" style="background:var(--color-border-tertiary)"></div>
+            
+            <div class="icard-dot" style="background:#378ADD"></div>
+            
+            <div class="icard-dot" style="background:#378ADD"></div>
+            
+            <div class="icard-dot" style="background:var(--color-border-tertiary)"></div>
+            
+          </div>
+          <div class="icard-count">11 צעדי מדיניות</div>
+        </a>
+        
+        <a class="icard" href="govleadership.html">
+          <div class="ihead">
+            <div class="iico" style="background:#FAECE7">
+              <i class="ti ti-building-community" style="color:#993C1D" aria-hidden="true"></i>
+            </div>
+            <div class="ititle">הובלה ממשלתית</div>
+          </div>
+          <div class="isub">תיאום · יעדים סגמנטליים · דוגמה ממשלתית</div>
+          
+          <div class="icard-infra">תשתית מאפשרת</div>
+          
+          <div class="icard-pbar">
+            <div class="icard-ptrack">
+              <div class="icard-pfill" style="width:18%;background:#D85A30"></div>
+            </div>
+            <div class="icard-pval">18%</div>
+          </div>
+          <div class="icard-dots">
+            
+            <div class="icard-dot" style="background:var(--color-border-tertiary)"></div>
+            
+            <div class="icard-dot" style="background:#378ADD"></div>
+            
+            <div class="icard-dot" style="background:#378ADD"></div>
+            
+            <div class="icard-dot" style="background:#BA7517"></div>
+            
+            <div class="icard-dot" style="background:var(--color-border-tertiary)"></div>
+            
+            <div class="icard-dot" style="background:#378ADD"></div>
+            
+            <div class="icard-dot" style="background:var(--color-border-tertiary)"></div>
+            
+            <div class="icard-dot" style="background:var(--color-border-tertiary)"></div>
+            
+          </div>
+          <div class="icard-count">8 צעדי מדיניות</div>
+        </a>
+        
+        <a class="icard" href="technologies.html">
+          <div class="ihead">
+            <div class="iico" style="background:#FBEAF0">
+              <i class="ti ti-atom" style="color:#993556" aria-hidden="true"></i>
+            </div>
+            <div class="ititle">טכנולוגיות נוספות</div>
+          </div>
+          <div class="isub">גיוון תמהיל · חדשנות · היערכות לטווח ארוך</div>
+          
+          <div class="igw">0.5 <span>/ 1 GW</span></div>
+          
+          <div class="icard-pbar">
+            <div class="icard-ptrack">
+              <div class="icard-pfill" style="width:19%;background:#D4537E"></div>
+            </div>
+            <div class="icard-pval">19%</div>
+          </div>
+          <div class="icard-dots">
+            
+            <div class="icard-dot" style="background:#BA7517"></div>
+            
+            <div class="icard-dot" style="background:var(--color-border-tertiary)"></div>
+            
+            <div class="icard-dot" style="background:#378ADD"></div>
+            
+            <div class="icard-dot" style="background:#BA7517"></div>
+            
+          </div>
+          <div class="icard-count">4 צעדי מדיניות</div>
+        </a>
+        
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<script>
+(function () {
+  const dark      = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const textColor = dark ? '#a8a7a2' : '#5f5e5a';
+  const mutedColor= dark ? '#6a6966' : '#9d9c98';
+  const gridColor = dark ? 'rgba(240,239,233,0.07)' : 'rgba(26,26,24,0.05)';
+
+  const cd = {"trajectory":{"years":[2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025,2026,2027,2028,2029,2030,2031,2032,2033,2034,2035],"historical":[2,2.5,3,4,5.5,7,9,11.5,13.5,15,16,null,null,null,null,null,null,null,null,null,null],"target":[null,null,null,null,null,null,null,null,null,null,16,19,22,25,28,30.5,33,36,38,39.5,40],"trend":[null,null,null,null,null,null,null,null,null,null,16,17.7,19.4,21.1,22.8,24.5,26.2,27.9,29.6,31.3,33],"currentYear":2025,"currentPct":16,"targetEnd":40,"trendEnd":33},"annualCapacity":{"years":[2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025,2026,2027,2028,2029,2030,2031,2032,2033,2034,2035],"dualuse":[0.05,0.1,0.15,0.22,0.3,0.4,0.52,0.65,0.72,0.75,0.63,null,null,null,null,null,null,null,null,null,null],"landsystems":[0.25,0.3,0.3,0.3,0.32,0.35,0.35,0.3,0.32,0.32,0.19,null,null,null,null,null,null,null,null,null,null],"agrovoltaics":[0,0,0,0,0,0,0,0.005,0.003,0.002,0.001,null,null,null,null,null,null,null,null,null,null],"technologies":[0.01,0.02,0.02,0.04,0.05,0.06,0.07,0.08,0.08,0.08,0,null,null,null,null,null,null,null,null,null,null],"currentRate":1,"requiredRate":1.8,"futureAnnual":{"dualuse":0.5,"landsystems":0.7,"agrovoltaics":0.5,"technologies":0.05}}};
+
+  const baseScales = {
+    x: { ticks: { color: textColor, font: { size: 10 } }, grid: { color: gridColor } },
+    y: { ticks: { color: textColor, font: { size: 10 } }, grid: { color: gridColor }, beginAtZero: true }
+  };
+  const baseLegend = { rtl: true, position: 'bottom', labels: { color: textColor, font: { size: 11 }, boxWidth: 18, padding: 10 } };
+
+  /* ── Trajectory chart ──────────────────────────── */
+  const currentIdx = cd.trajectory.years.indexOf(cd.trajectory.currentYear);
+
+  new Chart(document.getElementById('trajectoryChart'), {
+    type: 'line',
+    data: {
+      labels: cd.trajectory.years,
+      datasets: [
+        {
+          label: 'מגמה היסטורית',
+          data: cd.trajectory.historical,
+          borderColor: '#4A90D9',
+          backgroundColor: 'rgba(74,144,217,0.08)',
+          borderWidth: 2.5,
+          pointRadius: (ctx) => ctx.dataIndex === currentIdx ? 6 : 2,
+          pointBackgroundColor: '#4A90D9',
+          fill: true, tension: 0.4, spanGaps: false,
+        },
+        {
+          label: `תוכנית מואצת (${cd.trajectory.targetEnd}%)`,
+          data: cd.trajectory.target,
+          borderColor: '#639922',
+          backgroundColor: 'rgba(99,153,34,0.07)',
+          borderWidth: 2,
+          pointRadius: (ctx) => ctx.dataIndex === cd.trajectory.years.length - 1 ? 5 : 0,
+          pointBackgroundColor: '#639922',
+          fill: true, tension: 0.35, spanGaps: false,
+        },
+        {
+          label: `המשך המגמה הנוכחית (${cd.trajectory.trendEnd}%)`,
+          data: cd.trajectory.trend,
+          borderColor: '#D85A30',
+          borderDash: [6, 4],
+          borderWidth: 2,
+          pointRadius: (ctx) => ctx.dataIndex === cd.trajectory.years.length - 1 ? 5 : 0,
+          pointBackgroundColor: '#D85A30',
+          fill: false, tension: 0.3, spanGaps: false,
+        },
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      plugins: {
+        legend: { ...baseLegend },
+        tooltip: { rtl: true, callbacks: { label: (c) => ` ${c.dataset.label}: ${c.parsed.y}%` } },
+      },
+      scales: {
+        x: { ...baseScales.x },
+        y: {
+          ...baseScales.y,
+          max: 50,
+          ticks: { ...baseScales.y.ticks, callback: (v) => v + '%' },
+        },
+      },
+    },
+  });
+
+  /* ── Annual capacity chart ─────────────────────── */
+  const ac = cd.annualCapacity;
+  const flatLine = (val) => ac.years.map((_, i) => (i >= currentIdx ? val : null));
+
+  const inlineRateLabels = {
+    id: 'inlineRateLabels',
+    afterDatasetsDraw(chart) {
+      const { ctx, chartArea, scales } = chart;
+      if (!chartArea) return;
+      const lines = [
+        { value: ac.currentRate,  text: `${ac.currentRate} GW/שנה — קצב נוכחי`,  color: mutedColor, dy: -5 },
+        { value: ac.requiredRate, text: `${ac.requiredRate} GW/שנה — קצב נדרש`, color: '#D85A30',  dy: -5 },
+      ];
+      ctx.save();
+      ctx.font = 'bold 9.5px Heebo, Arial, sans-serif';
+      ctx.textAlign = 'left';
+      for (const { value, text, color, dy } of lines) {
+        const y = scales.y.getPixelForValue(value);
+        if (y < chartArea.top || y > chartArea.bottom) continue;
+        ctx.fillStyle = color;
+        ctx.fillText(text, chartArea.left + 4, y + dy);
+      }
+      ctx.restore();
+    },
+  };
+
+  new Chart(document.getElementById('capacityChart'), {
+    type: 'bar',
+    plugins: [inlineRateLabels],
+    data: {
+      labels: ac.years,
+      datasets: [
+        { type: 'bar',  label: 'דו-שימוש',          data: ac.dualuse,      backgroundColor: '#378ADD', stack: 's', borderRadius: 2 },
+        { type: 'bar',  label: 'מתקנים קרקעיים',    data: ac.landsystems,  backgroundColor: '#BA7517', stack: 's', borderRadius: 2 },
+        { type: 'bar',  label: 'אגרו-וולטאי',       data: ac.agrovoltaics, backgroundColor: '#639922', stack: 's', borderRadius: 2 },
+        { type: 'bar',  label: 'טכנולוגיות נוספות', data: ac.technologies, backgroundColor: '#D4537E', stack: 's', borderRadius: 2 },
+        {
+          type: 'line', label: '_currentRate',
+          data: flatLine(ac.currentRate),
+          borderColor: mutedColor, borderDash: [5, 4], borderWidth: 1.5,
+          pointRadius: 0, fill: false,
+        },
+        {
+          type: 'line', label: '_requiredRate',
+          data: flatLine(ac.requiredRate),
+          borderColor: '#D85A30', borderDash: [5, 4], borderWidth: 1.5,
+          pointRadius: 0, fill: false,
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      plugins: {
+        legend: {
+          ...baseLegend,
+          labels: { ...baseLegend.labels, filter: (item) => !item.text.startsWith('_') },
+        },
+        tooltip: {
+          rtl: true,
+          filter: (item) => !item.dataset.label.startsWith('_'),
+          callbacks: { label: (c) => ` ${c.dataset.label}: ${c.parsed.y?.toFixed(2)} GW` },
+        },
+      },
+      scales: {
+        x: { ...baseScales.x, stacked: true },
+        y: {
+          ...baseScales.y, stacked: true,
+          ticks: { ...baseScales.y.ticks, callback: (v) => v.toFixed(1) + ' GW' },
+        },
+      },
+    },
+  });
+  /* ── Stacked bars: cumulative installed capacity 2015–2035 ── */
+  const CUM_YEARS = ac.years;           // 21 years
+  const BPY2      = 5;                  // bars per year → 21 × 5 = 105 bars
+  const HIST_YR   = 2025;
+
+  function cumInstalled(annual, futureRate) {
+    let sum = 0;
+    return CUM_YEARS.map((_, i) => {
+      sum += (annual[i] != null) ? annual[i] : futureRate;
+      return parseFloat(sum.toFixed(3));
+    });
+  }
+
+  const cumDU = cumInstalled(ac.dualuse,      ac.futureAnnual.dualuse);
+  const cumLS = cumInstalled(ac.landsystems,  ac.futureAnnual.landsystems);
+  const cumAG = cumInstalled(ac.agrovoltaics, ac.futureAnnual.agrovoltaics);
+  const cumTC = cumInstalled(ac.technologies, ac.futureAnnual.technologies);
+
+  // Expand per-year cumulative value into BPY2 identical bars; null for wrong era
+  function mkCumBars(cumArr, isPast) {
+    return CUM_YEARS.flatMap((year, yi) => {
+      if (isPast !== (year <= HIST_YR)) return Array(BPY2).fill(null);
+      return Array(BPY2).fill(cumArr[yi]);
+    });
+  }
+
+  new Chart(document.getElementById('detailCapacityChart'), {
+    type: 'bar',
+    data: {
+      labels: Array.from({ length: CUM_YEARS.length * BPY2 }, (_, i) => i),
+      datasets: [
+        // Past — solid (2015–2025)
+        { label: 'דו-שימוש',          data: mkCumBars(cumDU, true), backgroundColor: '#378ADD', stack: 's', barPercentage: 1.0, categoryPercentage: 0.6 },
+        { label: 'מתקנים קרקעיים',    data: mkCumBars(cumLS, true), backgroundColor: '#BA7517', stack: 's', barPercentage: 1.0, categoryPercentage: 0.6 },
+        { label: 'אגרו-וולטאי',       data: mkCumBars(cumAG, true), backgroundColor: '#639922', stack: 's', barPercentage: 1.0, categoryPercentage: 0.6 },
+        { label: 'טכנולוגיות נוספות', data: mkCumBars(cumTC, true), backgroundColor: '#D4537E', stack: 's', barPercentage: 1.0, categoryPercentage: 0.6 },
+        // Future — light fill + top border (2026–2035)
+        { label: '_f-du', data: mkCumBars(cumDU, false), backgroundColor: 'rgba(55,138,221,0.22)',  borderColor: '#378ADD', borderWidth: { top: 1, right: 0, bottom: 0, left: 0 }, stack: 's', barPercentage: 1.0, categoryPercentage: 0.6 },
+        { label: '_f-ls', data: mkCumBars(cumLS, false), backgroundColor: 'rgba(186,117,23,0.22)',  borderColor: '#BA7517', borderWidth: { top: 1, right: 0, bottom: 0, left: 0 }, stack: 's', barPercentage: 1.0, categoryPercentage: 0.6 },
+        { label: '_f-ag', data: mkCumBars(cumAG, false), backgroundColor: 'rgba(99,153,34,0.22)',   borderColor: '#639922', borderWidth: { top: 1, right: 0, bottom: 0, left: 0 }, stack: 's', barPercentage: 1.0, categoryPercentage: 0.6 },
+        { label: '_f-tc', data: mkCumBars(cumTC, false), backgroundColor: 'rgba(212,83,126,0.22)',  borderColor: '#D4537E', borderWidth: { top: 1, right: 0, bottom: 0, left: 0 }, stack: 's', barPercentage: 1.0, categoryPercentage: 0.6 },
+      ],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      animation: false,
+      plugins: {
+        legend: {
+          ...baseLegend,
+          labels: { ...baseLegend.labels, filter: (item) => !item.text.startsWith('_') },
+        },
+        tooltip: {
+          rtl: true,
+          filter: (item) => !item.dataset.label.startsWith('_'),
+          callbacks: {
+            title:  (items) => String(CUM_YEARS[Math.floor(items[0].dataIndex / BPY2)]),
+            label:  (c) => ` ${c.dataset.label}: ${c.parsed.y.toFixed(2)} GW`,
+            footer: (items) => ` סה"כ: ${items.reduce((s, c) => s + c.parsed.y, 0).toFixed(1)} GW`,
+          },
+        },
+      },
+      scales: {
+        x: {
+          stacked: true,
+          ticks: {
+            color: textColor,
+            font: { size: 10 },
+            maxRotation: 0,
+            autoSkip: false,
+            callback: (_, idx) => idx % (BPY2*2) === Math.floor(BPY2 / 2)
+              ? String(CUM_YEARS[Math.floor(idx / BPY2)])
+              : null,
+          },
+          grid:   { display: false },
+          border: { display: false },
+        },
+        y: {
+          stacked: true,
+          beginAtZero: true,
+          max: 28,
+          grid:  { color: gridColor },
+          ticks: { color: textColor, font: { size: 10 }, callback: (v) => v.toFixed(0) + ' GW' },
+        },
+      },
+    },
+  });
+})();
+
+const toggle = document.getElementById('sidebarToggle');
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('sidebarOverlay');
+  toggle.addEventListener('click', () => {
+    sidebar.classList.toggle('open');
+    overlay.classList.toggle('open');
+  });
+  overlay.addEventListener('click', () => {
+    sidebar.classList.remove('open');
+    overlay.classList.remove('open');
+  });
+</script>
+</body>
+</html>
