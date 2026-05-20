@@ -385,6 +385,7 @@ h3 { font-size: 16px; font-weight: 500; }
   border-radius: 6px;
   position: relative;
   overflow: hidden;
+  direction: ltr;
 }
 .capval {
   font-size: 11px;
@@ -808,7 +809,6 @@ a.back {
   grid-template-columns: 1fr 1fr;
   gap: 12px;
   margin-bottom: 1.25rem;
-  direction: ltr;
 }
 .cap-layout > .panel { margin-bottom: 0; }
 
