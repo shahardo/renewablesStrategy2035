@@ -4,5 +4,18 @@
 			"path": ".."
 		}
 	],
-	"settings": {}
+	"settings": {
+		"chat.tools.terminal.autoApprove": {
+			"const": true,
+			"console.log(ac.installedThrough)": true,
+			"ac.installedThrough": true,
+			"null": true,
+			"console.log(tech,end,res.slice(-10))": true,
+			"tech,end,res.slice(-10)": true,
+			"/^node -e \".*\"$/": {
+				"approve": true,
+				"matchCommandLine": true
+			}
+		}
+	}
 }

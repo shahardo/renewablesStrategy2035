@@ -23,6 +23,12 @@
         "landsystems":  0.70,
         "agrovoltaics": 0.50,
         "technologies": 0.05
+      },
+      "installedCapacity": {
+        "dualuse": 5000,
+        "landsystems": 3500,
+        "agrovoltaics": 1000,
+        "technologies": 500
       }
     }
   },

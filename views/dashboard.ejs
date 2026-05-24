@@ -277,29 +277,47 @@
   const cumAG = cumInstalled(ac.agrovoltaics, ac.futureAnnual.agrovoltaics);
   const cumTC = cumInstalled(ac.technologies, ac.futureAnnual.technologies);
 
-  // Expand per-year cumulative value into BPY2 identical bars; null for wrong era
-  function mkCumBars(cumArr, isPast) {
-    return CUM_YEARS.flatMap((year, yi) => {
-      if (isPast !== (year <= HIST_YR)) return Array(BPY2).fill(null);
-      return Array(BPY2).fill(cumArr[yi]);
-    });
+  const installedCapacity = (ac.installedCapacity || {});
+
+  // Build full per-bar arrays so each technology is a single dataset (avoids stacking-order flips)
+  function mkCumBarsFull(cumArr) {
+    return CUM_YEARS.flatMap((year, yi) => Array(BPY2).fill(cumArr[yi]));
   }
+
+  function mkStyleArrays(techKey, cumArr, solidHex, lightHex) {
+    const thresholdGw = installedCapacity[techKey] != null
+      ? installedCapacity[techKey] / 1000
+      : Number.POSITIVE_INFINITY;
+    const bg = [];
+    const border = [];
+    const bwidth = [];
+    for (let yi = 0; yi < CUM_YEARS.length; yi++) {
+      const isSolid = cumArr[yi] <= thresholdGw;
+      for (let i = 0; i < BPY2; i++) {
+        bg.push(isSolid ? solidHex : lightHex);
+        border.push(isSolid ? solidHex : lightHex);
+        bwidth.push(isSolid ? 0 : 1);
+      }
+    }
+    return { bg, border, bwidth };
+  }
+
+  const labels = Array.from({ length: CUM_YEARS.length * BPY2 }, (_, i) => i);
+
+  const duStyles = mkStyleArrays('dualuse', cumDU, '#378ADD', '#A5CAF5');
+  const lsStyles = mkStyleArrays('landsystems', cumLS, '#BA7517', '#E6CE9B');
+  const agStyles = mkStyleArrays('agrovoltaics', cumAG, '#639922', '#B7DA96');
+  const tcStyles = mkStyleArrays('technologies', cumTC, '#D4537E', '#F0BBCF');
 
   new Chart(document.getElementById('detailCapacityChart'), {
     type: 'bar',
     data: {
-      labels: Array.from({ length: CUM_YEARS.length * BPY2 }, (_, i) => i),
+      labels,
       datasets: [
-        // Past — solid (2015–2025)
-        { label: 'דו-שימוש',          data: mkCumBars(cumDU, true), backgroundColor: '#378ADD', stack: 's', barPercentage: 1.0, categoryPercentage: 0.6 },
-        { label: 'מתקנים קרקעיים',    data: mkCumBars(cumLS, true), backgroundColor: '#BA7517', stack: 's', barPercentage: 1.0, categoryPercentage: 0.6 },
-        { label: 'אגרו-וולטאי',       data: mkCumBars(cumAG, true), backgroundColor: '#639922', stack: 's', barPercentage: 1.0, categoryPercentage: 0.6 },
-        { label: 'טכנולוגיות נוספות', data: mkCumBars(cumTC, true), backgroundColor: '#D4537E', stack: 's', barPercentage: 1.0, categoryPercentage: 0.6 },
-        // Future — light fill + top border (2026–2035)
-        { label: '_f-du', data: mkCumBars(cumDU, false), backgroundColor: 'rgba(55,138,221,0.22)',  borderColor: '#378ADD', borderWidth: { top: 1, right: 0, bottom: 0, left: 0 }, stack: 's', barPercentage: 1.0, categoryPercentage: 0.6 },
-        { label: '_f-ls', data: mkCumBars(cumLS, false), backgroundColor: 'rgba(186,117,23,0.22)',  borderColor: '#BA7517', borderWidth: { top: 1, right: 0, bottom: 0, left: 0 }, stack: 's', barPercentage: 1.0, categoryPercentage: 0.6 },
-        { label: '_f-ag', data: mkCumBars(cumAG, false), backgroundColor: 'rgba(99,153,34,0.22)',   borderColor: '#639922', borderWidth: { top: 1, right: 0, bottom: 0, left: 0 }, stack: 's', barPercentage: 1.0, categoryPercentage: 0.6 },
-        { label: '_f-tc', data: mkCumBars(cumTC, false), backgroundColor: 'rgba(212,83,126,0.22)',  borderColor: '#D4537E', borderWidth: { top: 1, right: 0, bottom: 0, left: 0 }, stack: 's', barPercentage: 1.0, categoryPercentage: 0.6 },
+        { label: 'דו-שימוש',          data: mkCumBarsFull(cumDU), backgroundColor: duStyles.bg, borderColor: duStyles.border, borderWidth: duStyles.bwidth, stack: 's', barPercentage: 1.0, categoryPercentage: 0.6 },
+        { label: 'מתקנים קרקעיים',    data: mkCumBarsFull(cumLS), backgroundColor: lsStyles.bg, borderColor: lsStyles.border, borderWidth: lsStyles.bwidth, stack: 's', barPercentage: 1.0, categoryPercentage: 0.6 },
+        { label: 'אגרו-וולטאי',       data: mkCumBarsFull(cumAG), backgroundColor: agStyles.bg, borderColor: agStyles.border, borderWidth: agStyles.bwidth, stack: 's', barPercentage: 1.0, categoryPercentage: 0.6 },
+        { label: 'טכנולוגיות נוספות', data: mkCumBarsFull(cumTC), backgroundColor: tcStyles.bg, borderColor: tcStyles.border, borderWidth: tcStyles.bwidth, stack: 's', barPercentage: 1.0, categoryPercentage: 0.6 },
       ],
     },
     options: {
@@ -307,13 +325,9 @@
       maintainAspectRatio: true,
       animation: false,
       plugins: {
-        legend: {
-          ...baseLegend,
-          labels: { ...baseLegend.labels, filter: (item) => !item.text.startsWith('_') },
-        },
+        legend: { ...baseLegend },
         tooltip: {
           rtl: true,
-          filter: (item) => !item.dataset.label.startsWith('_'),
           callbacks: {
             title:  (items) => String(CUM_YEARS[Math.floor(items[0].dataIndex / BPY2)]),
             label:  (c) => ` ${c.dataset.label}: ${c.parsed.y.toFixed(2)} GW`,
