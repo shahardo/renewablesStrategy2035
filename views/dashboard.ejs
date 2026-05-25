@@ -228,10 +228,14 @@ function initCharts() {
     data: {
       labels: ac.years,
       datasets: [
-        { type: 'bar',  label: 'דו-שימוש',          data: ac.dualuse,      backgroundColor: '#378ADD', stack: 's', borderRadius: 2 },
-        { type: 'bar',  label: 'מתקנים קרקעיים',    data: ac.landsystems,  backgroundColor: '#BA7517', stack: 's', borderRadius: 2 },
-        { type: 'bar',  label: 'אגרו-וולטאי',       data: ac.agrovoltaics, backgroundColor: '#639922', stack: 's', borderRadius: 2 },
-        { type: 'bar',  label: 'טכנולוגיות נוספות', data: ac.technologies, backgroundColor: '#D4537E', stack: 's', borderRadius: 2 },
+        { type: 'bar',  label: 'דו-שימוש',          data: ac.dualuse,           backgroundColor: '#378ADD', stack: 's', borderRadius: 2 },
+        { type: 'bar',  label: 'מתקנים קרקעיים',    data: ac.landsystems,       backgroundColor: '#BA7517', stack: 's', borderRadius: 2 },
+        { type: 'bar',  label: 'אגרו-וולטאי',       data: ac.agrovoltaics,      backgroundColor: '#639922', stack: 's', borderRadius: 2 },
+        { type: 'bar',  label: 'טכנולוגיות נוספות', data: ac.technologies,      backgroundColor: '#D4537E', stack: 's', borderRadius: 2 },
+        { type: 'bar',  label: '_future_dualuse',    data: ac.future_dualuse,    backgroundColor: 'rgba(55, 138, 221, 0.25)', stack: 'future', borderRadius: 2 },
+        { type: 'bar',  label: '_future_landsystems',data: ac.future_landsystems,backgroundColor: 'rgba(186, 117, 23, 0.25)', stack: 'future', borderRadius: 2 },
+        { type: 'bar',  label: '_future_agrovoltaics',data: ac.future_agrovoltaics,backgroundColor: 'rgba(99, 153, 34, 0.25)', stack: 'future', borderRadius: 2 },
+        { type: 'bar',  label: '_future_technologies', data: ac.future_technologies, backgroundColor: 'rgba(212, 83, 126, 0.25)', stack: 'future', borderRadius: 2 },
         {
           type: 'line', label: '_currentRate',
           data: flatLine(ac.currentRate),
@@ -241,7 +245,7 @@ function initCharts() {
         {
           type: 'line', label: '_requiredRate',
           data: flatLine(ac.requiredRate),
-          borderColor: '#D85A30', borderDash: [5, 4], borderWidth: 1.5,
+          borderColor: '#D85A30', borderWidth: 2.5, borderDash: [4, 3],
           pointRadius: 0, fill: false,
         },
       ],
@@ -261,9 +265,9 @@ function initCharts() {
         },
       },
       scales: {
-        x: { ...baseScales.x, stacked: true },
+        x: { ...baseScales.x, stacked: true, maxRotation: 0, barPercentage: 0.95, categoryPercentage: 0.95 },
         y: {
-          ...baseScales.y, stacked: true,
+          ...baseScales.y, stacked: true, max: 2.2,
           ticks: { ...baseScales.y.ticks, callback: (v) => v.toFixed(1) + ' GW' },
         },
       },
