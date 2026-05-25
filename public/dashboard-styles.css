@@ -39,9 +39,32 @@
   --border-radius-xl: 16px;
 }
 
-/* ── Dark mode ───────────────────────────────────── */
+/* ── Dark mode via class ───────────────────────── */
+html[data-theme="dark"] {
+  --color-background-primary:   #1e1e1c;
+  --color-background-secondary: #2a2a28;
+  --color-background-tertiary:  #242422;
+  --color-background-info:      #0c2e52;
+  --color-background-success:   #1a3408;
+  --color-background-warning:   #3d2504;
+  --color-background-danger:    #3c0f0f;
+
+  --color-text-primary:   #f0efe9;
+  --color-text-secondary: #a8a7a2;
+  --color-text-tertiary:  #6a6966;
+  --color-text-info:      #85b7eb;
+  --color-text-success:   #97c459;
+  --color-text-warning:   #ef9f27;
+  --color-text-danger:    #f09595;
+
+  --color-border-primary:   rgba(240,239,233,0.40);
+  --color-border-secondary: rgba(240,239,233,0.25);
+  --color-border-tertiary:  rgba(240,239,233,0.12);
+}
+
+/* Fallback for system preference when no explicit theme set */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme]) {
     --color-background-primary:   #1e1e1c;
     --color-background-secondary: #2a2a28;
     --color-background-tertiary:  #242422;
@@ -64,6 +87,24 @@
   }
 }
 
+/* ── Top bar (header with buttons) ────────────────── */
+.top-bar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  gap: 8px;
+  padding: 12px 0 12px 0;
+  flex-direction: row-reverse;
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 700px) {
+  .top-bar {
+    margin-bottom: 0.75rem;
+  }
+}
+
 /* ── Page shell ──────────────────────────────────── */
 html, body {
   background: var(--color-background-tertiary);
@@ -74,6 +115,7 @@ html, body {
   line-height: 1.7;
   direction: rtl;
   min-height: 100vh;
+  transition: background 0.2s, color 0.2s;
 }
 
 body {
@@ -86,6 +128,8 @@ body {
   flex-direction: row;
   direction: rtl;
   min-height: 100vh;
+  margin-top: 0;
+  justify-content: center;
 }
 
 /* ── Sidebar ─────────────────────────────────────── */
@@ -234,24 +278,45 @@ body {
   direction: rtl;
 }
 
-/* ── Mobile sidebar toggle ───────────────────────── */
-.sidebar-toggle {
-  display: none;
-  position: fixed;
-  top: 12px;
-  right: 12px;
-  z-index: 300;
-  width: 36px;
-  height: 36px;
-  border-radius: 8px;
-  border: 0.5px solid var(--color-border-tertiary);
+.theme-toggle {
+  width: 40px;
+  height: 40px;
   background: var(--color-background-secondary);
-  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border-tertiary);
+  border-radius: var(--border-radius-md);
+  color: var(--color-text-primary);
   cursor: pointer;
+  display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 16px;
+  transition: background 0.2s, color 0.2s;
+  font-size: 20px;
   padding: 0;
+}
+
+.theme-toggle:hover {
+  background: var(--color-background-secondary);
+}
+
+.sidebar-toggle {
+  width: 40px;
+  height: 40px;
+  background: var(--color-background-secondary);
+  border: 1px solid var(--color-border-tertiary);
+  border-radius: var(--border-radius-md);
+  color: var(--color-text-primary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, color 0.2s;
+  font-size: 20px;
+  padding: 0;
+  display: none;
+}
+
+.sidebar-toggle:hover {
+  background: var(--color-background-secondary);
 }
 
 .sidebar-overlay {

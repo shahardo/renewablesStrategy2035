@@ -10,14 +10,18 @@
 </head>
 <body>
 
-<button class="sidebar-toggle" id="sidebarToggle" aria-label="פתח תפריט">
-  <i class="ti ti-menu-2"></i>
-</button>
-
 <div class="layout">
   <%- include('partials/sidebar') %>
 
   <main class="main-content">
+    <div class="top-bar">
+      <button class="theme-toggle" id="themeToggle" aria-label="החלף מצב תאורה">
+        <i class="ti ti-sun" id="themeIcon"></i>
+      </button>
+      <button class="sidebar-toggle" id="sidebarToggle" aria-label="פתח תפריט">
+        <i class="ti ti-menu-2"></i>
+      </button>
+    </div>
     <div class="db">
       <h2 class="sr-only">לוח מעקב יישום תוכנית אנרגיות מתחדשות 2035 — KPIs ומדדי התקדמות לפי 6 מהלכי-על</h2>
 
@@ -114,13 +118,19 @@
 </div>
 
 <script>
-(function () {
-  const dark      = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  const textColor = dark ? '#a8a7a2' : '#5f5e5a';
-  const mutedColor= dark ? '#6a6966' : '#9d9c98';
-  const gridColor = dark ? 'rgba(240,239,233,0.07)' : 'rgba(26,26,24,0.05)';
+function initCharts() {
+  if (typeof Chart === 'undefined') {
+    setTimeout(initCharts, 50);
+    return;
+  }
 
-  const cd = <%- JSON.stringify(charts) %>;
+  (function () {
+    const dark      = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const textColor = dark ? '#a8a7a2' : '#5f5e5a';
+    const mutedColor= dark ? '#6a6966' : '#9d9c98';
+    const gridColor = dark ? 'rgba(240,239,233,0.07)' : 'rgba(26,26,24,0.05)';
+
+    const cd = <%- JSON.stringify(charts) %>;
 
   const baseScales = {
     x: { ticks: { color: textColor, font: { size: 10 } }, grid: { color: gridColor } },
@@ -360,7 +370,10 @@
       },
     },
   });
-})();
+  })();
+}
+
+initCharts();
 
 const toggle = document.getElementById('sidebarToggle');
   const sidebar = document.getElementById('sidebar');
@@ -373,6 +386,36 @@ const toggle = document.getElementById('sidebarToggle');
     sidebar.classList.remove('open');
     overlay.classList.remove('open');
   });
+
+  // Theme toggle with localStorage (default: light)
+  const themeToggle = document.getElementById('themeToggle');
+  const themeIcon = document.getElementById('themeIcon');
+  const html = document.documentElement;
+  
+  function applyTheme(isDark) {
+    if (isDark) {
+      html.setAttribute('data-theme', 'dark');
+      themeIcon.className = 'ti ti-moon';
+      localStorage.setItem('theme', 'dark');
+    } else {
+      html.removeAttribute('data-theme');
+      themeIcon.className = 'ti ti-sun';
+      localStorage.setItem('theme', 'light');
+    }
+  }
+  
+  function initTheme() {
+    const saved = localStorage.getItem('theme');
+    const isDark = saved === 'dark';
+    applyTheme(isDark);
+  }
+  
+  themeToggle.addEventListener('click', () => {
+    const isDark = html.hasAttribute('data-theme');
+    applyTheme(!isDark);
+  });
+  
+  initTheme();
 </script>
 </body>
 </html>
